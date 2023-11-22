@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MasterMealMind.Repository.Models
 {
-    public class Grocerie
+    public class Recipe
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double Quantity { get; set; }
         public string Description { get; set; }
-        
+        public List<Grocerie> Ingredients { get; set; }
+
     }
 }
