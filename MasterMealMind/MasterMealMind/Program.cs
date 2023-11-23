@@ -1,3 +1,5 @@
+using MasterMealMind.Services;
+
 namespace MasterMealMind
 {
     public class Program
@@ -8,6 +10,7 @@ namespace MasterMealMind
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddScoped<HttpService>();
 
             var app = builder.Build();
 
