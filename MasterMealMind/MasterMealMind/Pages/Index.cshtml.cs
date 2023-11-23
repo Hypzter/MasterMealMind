@@ -1,17 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MasterMealMind.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MasterMealMind.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public List<Grocerie> Ingredients { get; set; }
+        public List<Recipe> Recipes { get; set; }
+
+        public IndexModel()
         {
-            _logger = logger;
+            if (Ingredients == null)
+            {
+                
+            }
         }
-
         public void OnGet()
         {
 
