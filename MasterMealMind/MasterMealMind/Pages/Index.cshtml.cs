@@ -13,7 +13,7 @@ namespace MasterMealMind.Pages
         [BindProperty]
         public Grocerie Grocerie { get; set; }
         [BindProperty]
-        public Recipe Recipe { get; set; }
+        public Recipe Recipe { get; set; } = new Recipe();
         public List<Grocerie> Ingredients { get; set; }
         public List<Recipe> Recipes { get; set; }
 
@@ -43,6 +43,5 @@ namespace MasterMealMind.Pages
             }
             return RedirectToPage();
         }
-
     }
 }
