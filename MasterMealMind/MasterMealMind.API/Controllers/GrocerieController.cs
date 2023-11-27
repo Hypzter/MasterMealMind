@@ -16,15 +16,15 @@ namespace MasterMealMind.API.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<Models.Grocerie>> GetGroceriesAsync() => await _grocerieRepository.GetAllGroceries();
+        public async Task<IEnumerable<Models.Grocery>> GetGroceriesAsync() => await _grocerieRepository.GetAllGroceries();
 
 
         [HttpGet("{id}")]
-        public async Task<Models.Grocerie> GetOneGrocerieAsync(int id) => await _grocerieRepository.GetOneGrocerie(id);
+        public async Task<Models.Grocery> GetOneGrocerieAsync(int id) => await _grocerieRepository.GetOneGrocerie(id);
 
 
         [HttpPost]
-        public async Task CreateGrocerieAsync([FromBody] Models.Grocerie grocerie) => await _grocerieRepository.CreateGrocerie(grocerie);
+        public async Task CreateGrocerieAsync([FromBody] Models.Grocery grocerie) => await _grocerieRepository.CreateGrocerie(grocerie);
 
         // PUT api/<GrocerieController>/5
         [HttpPut("{id}")]

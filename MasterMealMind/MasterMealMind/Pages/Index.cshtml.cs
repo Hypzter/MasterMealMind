@@ -2,29 +2,35 @@
 using MasterMealMind.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace MasterMealMind.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly HttpService _httpService;
+        private readonly RecipeService _recipeService;
+
 
 
         [BindProperty]
-        public Grocerie Grocerie { get; set; }
+        public Grocery Grocerie { get; set; }
         [BindProperty]
-        public Recipe Recipe { get; set; } = new Recipe();
-        public List<Grocerie> Ingredients { get; set; }
-        public List<Recipe> Recipes { get; set; }
+        public List<Grocery> Ingredients { get; set; }
+        [BindProperty]
+        public SingleRecipe Recipe { get; set; }
 
-        public IndexModel(HttpService httpService)
+        public IndexModel(HttpService httpService, RecipeService recipeService)
         {
             _httpService = httpService;
+            _recipeService = recipeService;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-
+            Recipe = await _recipeService.GetOneRecipe();
+            return Page();
         }
         public async Task<IActionResult> OnPostAddGrocerie() 
         {
@@ -35,13 +41,5 @@ namespace MasterMealMind.Pages
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPostAddRecipe()
-        {
-            if (Recipe != null && Recipe.Name != null)
-            {
-                await _httpService.HttpPostRecipe(Recipe);
-            }
-            return RedirectToPage();
-        }
     }
 }
