@@ -16,11 +16,11 @@ namespace MasterMealMind.Services
             };
         }
 
-        public async Task<List<Grocerie>> HttpGetGroceriesRequest(string requestUri)
+        public async Task<List<Grocery>> HttpGetGroceriesRequest(string requestUri)
         {
             var response = await _httpClient.GetAsync(requestUri);
             var content = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<List<Grocerie>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return JsonSerializer.Deserialize<List<Grocery>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
         public async Task<List<Recipe>> HttpGetRecipesRequest(string requestUri)
@@ -30,7 +30,7 @@ namespace MasterMealMind.Services
             return JsonSerializer.Deserialize<List<Recipe>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
-        public async Task<bool> HttpPostGrocerie(Grocerie grocerie)
+        public async Task<bool> HttpPostGrocerie(Grocery grocerie)
         {
             var jsonString = JsonSerializer.Serialize(grocerie);
             var content = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");

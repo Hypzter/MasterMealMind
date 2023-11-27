@@ -18,21 +18,21 @@ namespace MasterMealMind.API.DAL
             _connectionString = connectionString.GetConnectionString();
         }
 
-        internal async Task<List<Grocerie>> GetAllGroceries()
+        internal async Task<List<Grocery>> GetAllGroceries()
         {
             return await _context.Groceries.ToListAsync();
         }
 
-        internal async Task<Grocerie> GetOneGrocerie(int id)
+        internal async Task<Grocery> GetOneGrocerie(int id)
         {
             var grocerie = await _context.Groceries.FirstOrDefaultAsync(g => g.Id == id);
 
             return grocerie != null ? grocerie : null;
         }
 
-        internal async Task CreateGrocerie(Grocerie grocerie)
+        internal async Task CreateGrocerie(Grocery grocerie)
         {
-            var newGrocerie = new Grocerie
+            var newGrocerie = new Grocery
             {
                 Name = grocerie.Name,
                 Description = grocerie.Description,

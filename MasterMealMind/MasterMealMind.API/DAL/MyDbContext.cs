@@ -15,8 +15,7 @@ namespace MasterMealMind.DAL
 
         }
 
-        public DbSet<Grocerie> Groceries { get; set;}
-        public DbSet<Recipe> Recipes { get; set;}
+        public DbSet<Grocery> Groceries { get; set;}
 
     }
 }

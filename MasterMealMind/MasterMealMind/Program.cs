@@ -11,6 +11,8 @@ namespace MasterMealMind
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<HttpService>();
+            builder.Services.AddScoped<RecipeService>();
+
 
             var app = builder.Build();
 

@@ -1,17 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MasterMealMind.Models
+﻿namespace MasterMealMind.Models
 {
     public class Recipe
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public List<Grocerie>? Ingredients { get; set; }
-
+        public int ImageId { get; set; }
+        public string ImageUrl { get; set; }
+        public string Title { get; set; }
+        public object PreambleHTML { get; set; }
+        public string CookingTime { get; set; }
+        public int CookingTimeMinutes { get; set; }
+        public float AverageRating { get; set; }
+        public int CommentCount { get; set; }
+        public int IngredientCount { get; set; }
+        public int OfferCount { get; set; }
+    }
+    internal class RecipeResult
+    {
+        public int NumberOfPages { get; set; }
+        public List<Recipe> Recipes { get; set; }
+        public int TotalNumberOfRecipes { get; set; }
+        public string Msg { get; set; }
     }
 }

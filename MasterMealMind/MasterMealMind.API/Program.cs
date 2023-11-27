@@ -16,7 +16,6 @@ namespace MasterMealMind.API
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddTransient<GrocerieRepository>();
-            builder.Services.AddTransient<RecipeRepository>();
             builder.Services.AddSingleton<Connection>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
