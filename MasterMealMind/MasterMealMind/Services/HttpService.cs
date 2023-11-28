@@ -39,7 +39,7 @@ namespace MasterMealMind.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> HttpDeleteRequest<T>(string requestUri)
+        public async Task<bool> HttpDeleteRequest(string requestUri)
         {
             var response = await _httpClient.DeleteAsync(requestUri);
             if (!response.IsSuccessStatusCode)

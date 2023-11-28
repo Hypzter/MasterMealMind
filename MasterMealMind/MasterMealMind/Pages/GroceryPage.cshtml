@@ -27,6 +27,7 @@
                     <th scope="col">Namn</th>
                     <th scope="col">Antal</th>
                     <th scope="col">Beskrivning</th>
+                    <th scope="col">Ta bort</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,12 @@
                         <td>@grocery.Name</td>
                         <td>@grocery.Quantity</td>
                         <td>@grocery.Description</td>
+                        <td>
+                            <form method="post" asp-page-handler="DeleteGrocery">
+                                <input type="hidden" name="deleteId" value="@grocery.Id">
+                                <button type="submit" class="btn btn-secondary">Ta bort</button>
+                            </form>
+                        </td>
                     </tr>
                 }
 
