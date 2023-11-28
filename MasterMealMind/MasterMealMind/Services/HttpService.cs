@@ -35,16 +35,7 @@ namespace MasterMealMind.Services
             var jsonString = JsonSerializer.Serialize(grocery);
             var content = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("Grocerie", content);
-            return response.IsSuccessStatusCode;
-        }
-
-        public async Task<bool> HttpPostRecipe(Recipe recipe)
-        {
-            var jsonString = JsonSerializer.Serialize(recipe);
-            var content = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
-
-            var response = await _httpClient.PostAsync("Recipe", content);
+            var response = await _httpClient.PostAsync("Grocery", content);
             return response.IsSuccessStatusCode;
         }
 

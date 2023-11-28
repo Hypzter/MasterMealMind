@@ -43,7 +43,7 @@ namespace MasterMealMind.API.DAL
         internal async Task UpdateGrocery(Grocery updatedGrocery)
         {
             _context.Entry(updatedGrocery).State = EntityState.Modified;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteGrocery(int id)

@@ -20,15 +20,15 @@ namespace MasterMealMind.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            if (Groceries == null) 
-            {
-                Groceries = await _httpService.HttpGetGroceriesRequest("Grocery");
-            }
+            Groceries = await _httpService.HttpGetGroceriesRequest("Grocery") ?? new List<Grocery>();
+
             return Page();
         }
-        public async Task<IActionResult> AddGroceryOnPost()
+        public async Task<IActionResult> OnPostAddGrocery()
         {
-            if (NewGrocery != null && NewGrocery.Name != null)
+            Groceries = await _httpService.HttpGetGroceriesRequest("Grocery") ?? new List<Grocery>();
+
+            if (NewGrocery != null && NewGrocery.Name != null && !Groceries.Any(g => g.Name == NewGrocery.Name))
             {
                 await _httpService.HttpPostGrocerie(NewGrocery);
             }
