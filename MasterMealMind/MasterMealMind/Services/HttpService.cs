@@ -30,9 +30,9 @@ namespace MasterMealMind.Services
             return JsonSerializer.Deserialize<List<Recipe>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
-        public async Task<bool> HttpPostGrocerie(Grocery grocerie)
+        public async Task<bool> HttpPostGrocerie(Grocery grocery)
         {
-            var jsonString = JsonSerializer.Serialize(grocerie);
+            var jsonString = JsonSerializer.Serialize(grocery);
             var content = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync("Grocerie", content);

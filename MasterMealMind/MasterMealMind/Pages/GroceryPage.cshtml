@@ -1,0 +1,45 @@
+﻿@page
+@model MasterMealMind.Pages.GroceryPageModel
+@{
+}
+
+<div class="container">
+    <form method="post" asp-page-handler="AddGrocery" class="form-inline">
+        <p class="italic-bold-text">Lägg till matvara</p>
+
+        <label for="Name" class="sr-only">Namn</label>
+        <input asp-for="NewGrocery.Name" type="text" class="form-control rounded-3 py-2 mb-4" id="Name" placeholder="Lägg till namn" />
+
+        <label for="Quantity" class="sr-only">Antal</label>
+        <input asp-for="NewGrocery.Quantity" type="number" class="form-control rounded-3 py-2 mb-4" id="Quantity" />
+
+        <label for="Description" class="sr-only">Beskrivning</label>
+        <textarea asp-for="NewGrocery.Description" class="form-control rounded-3 py-2 mb-4" id="Description" placeholder="Lägg till beskrivning"></textarea>
+
+        <button class="btn btn-primary btn-block fa-lg mb-3" type="submit">Lägg till</button>
+    </form>
+
+    @if (Model.Groceries != null)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Namn</th>
+                    <th scope="col">Antal</th>
+                    <th scope="col">Beskrivning</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var grocery in Model.Groceries)
+                {
+                    <tr>
+                        <td>@grocery.Name</td>
+                        <td>@grocery.Quantity</td>
+                        <td>@grocery.Description</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+</div>
