@@ -21,8 +21,7 @@ namespace MasterMealMind.API.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<Grocery> GetOneGroceryAsync(int id) => await _groceryRepository.GetOneGrocery(id);
-
+        public async Task<Grocery> GetOneGroceryByIdAsync(int id) => await _groceryRepository.GetOneGrocery(id);
 
         [HttpPost]
         public async Task CreateGroceryAsync([FromBody] Grocery grocery) => await _groceryRepository.CreateGrocery(grocery);

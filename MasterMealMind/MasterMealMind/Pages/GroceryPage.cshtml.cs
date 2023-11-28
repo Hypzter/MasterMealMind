@@ -35,5 +35,12 @@ namespace MasterMealMind.Pages
 
             return RedirectToPage();
         }
+
+        public async Task<IActionResult> OnPostDeleteGrocery([FromForm] int deleteId)
+        {
+            await _httpService.HttpDeleteRequest("Grocery/" + deleteId.ToString());
+
+            return RedirectToPage();
+        }
     }
 }
