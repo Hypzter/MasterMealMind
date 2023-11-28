@@ -29,7 +29,7 @@ namespace MasterMealMind.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Recipe = await _recipeService.GetOneRecipe();
+            //Recipe = await _recipeService.GetOneRecipe();
             return Page();
         }
         public async Task<IActionResult> OnPostAddGrocerie() 

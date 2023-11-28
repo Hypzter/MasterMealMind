@@ -12,5 +12,9 @@ namespace MasterMealMind.Models
         public string? Name { get; set; }
         public double Quantity { get; set; }
         public string? Description { get; set; }
+
+        //public DateTime BestBefore { get; set; }
+        //public string ---> MÄNGD <---
+        //public Storage Storage { get; set; }
     }
 }

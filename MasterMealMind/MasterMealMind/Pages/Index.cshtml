@@ -6,27 +6,7 @@
 }
 
 <div class="text-center">
-    <form method="post" asp-page-handler="AddGrocerie">
-        <p class="italic-bold-text">Lägg till matvara</p>
-
-        <div class="form-outline mb-4">
-            <label class="form-label">Namn</label>
-            <input asp-for="Grocerie.Name" type="text" class="form-control rounded-3 py-2" placeholder="Lägg till namn" />
-        </div>
-        <div class="form-outline mb-4">
-            <label class="form-label">Antal</label>
-            <input asp-for="Grocerie.Quantity" type="number" class="form-control rounded-3 py-2"/>
-        </div>
-
-        <div class="form-outline mb-4">
-            <label class="form-label">Beskrivning</label>
-            <textarea asp-for="Grocerie.Description" type="text" class="form-control rounded-3 py-2" placeholder="Lägg till beskrivning"></textarea>
-        </div>
-
-        <div class="text-center pt-1 mb-5 pb-1">
-            <button class="btn btn-primary btn-block fa-lg mb-3" type="submit">Lägg till</button>
-        </div>
-    </form>
+    
 
     @if(Model.Recipe != null)
     {
