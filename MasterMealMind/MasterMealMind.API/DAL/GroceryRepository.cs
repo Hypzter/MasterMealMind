@@ -45,6 +45,18 @@ namespace MasterMealMind.API.DAL
             _context.Entry(updatedGrocery).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+        public async Task DeleteGrocery(int id)
+        {
+            var grocery = _context.Groceries.Find(id);
+
+            if (grocery != null)
+            {
+                _context.Groceries.Remove(grocery);
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<bool> GroceryExists(int id)
         {
             return await _context.Groceries.AnyAsync(g => g.Id == id);
