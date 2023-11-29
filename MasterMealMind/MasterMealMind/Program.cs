@@ -1,4 +1,5 @@
 using MasterMealMind.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MasterMealMind
 {
@@ -10,11 +11,13 @@ namespace MasterMealMind
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddScoped<HttpService>();
+            builder.Services.AddScoped<IHttpService, HttpService>();
+            builder.Services.AddScoped<HttpClient>();
             builder.Services.AddScoped<RecipeService>();
 
 
-            var app = builder.Build();
+
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

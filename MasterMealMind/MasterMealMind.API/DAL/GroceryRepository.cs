@@ -46,14 +46,14 @@ namespace MasterMealMind.API.DAL
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteGrocery(int id)
+        public void DeleteGrocery(int id)
         {
             var grocery = _context.Groceries.Find(id);
 
             if (grocery != null)
             {
                 _context.Groceries.Remove(grocery);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
 
