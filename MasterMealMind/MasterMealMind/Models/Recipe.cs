@@ -14,7 +14,7 @@
         public int IngredientCount { get; set; }
         public int OfferCount { get; set; }
     }
-    internal class RecipeResult
+    public class RecipeResult
     {
         public int NumberOfPages { get; set; }
         public List<Recipe> Recipes { get; set; }

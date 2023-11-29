@@ -51,11 +51,6 @@
 						<td>
 							<form method="post" asp-page-handler="EditGrocery">
 								<input type="hidden" name="editId" value="@grocery.Id">
-								<input asp-for="NewGrocery.Id" type="hidden" />
-								<input asp-for="NewGrocery.Name" type="hidden" />
-								<input asp-for="NewGrocery.Quantity" type="hidden" />
-								<input asp-for="NewGrocery.Description" type="hidden" />
-
 								<button type="submit" class="btn btn-warning">Ändra</button>
 							</form>
 						</td>

@@ -7,7 +7,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace MasterMealMind.API.DAL
 {
-    public class GroceryRepository
+    public class GroceryRepository : IGroceryRepository
     {
         private readonly MyDbContext _context;
 
@@ -16,31 +16,25 @@ namespace MasterMealMind.API.DAL
             _context = context;
         }
 
-        internal async Task<List<Grocery>> GetAllGroceries()
+        public async Task<List<Grocery>> GetAllGroceries()
         {
             return await _context.Groceries.ToListAsync();
         }
 
-        internal async Task<Grocery> GetOneGrocery(int id)
+        public async Task<Grocery> GetOneGrocery(int id)
         {
             var grocery = await _context.Groceries.FirstOrDefaultAsync(g => g.Id == id);
 
             return grocery != null ? grocery : null;
         }
 
-        internal async Task CreateGrocery(Grocery grocery)
+        public async Task CreateGrocery(Grocery grocery)
         {
-            var newGrocery = new Grocery
-            {
-                Name = grocery.Name,
-                Description = grocery.Description,
-                Quantity = grocery.Quantity
-            };
-            await _context.Groceries.AddAsync(newGrocery);
+            await _context.Groceries.AddAsync(grocery);
             await _context.SaveChangesAsync();
         }
 
-        internal async Task UpdateGrocery(Grocery updatedGrocery)
+        public async Task UpdateGrocery(Grocery updatedGrocery)
         {
             _context.Entry(updatedGrocery).State = EntityState.Modified;
             await _context.SaveChangesAsync();

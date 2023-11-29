@@ -37,11 +37,8 @@ namespace MasterMealMind.Pages
                 await _httpService.HttpPostGrocery(NewGrocery);
             else if (NewGrocery != null && NewGrocery.Name != null && Groceries.FirstOrDefault(g => string.Equals(g.Name, NewGrocery.Name, StringComparison.OrdinalIgnoreCase)) is not null)
             {
-                var groceryToUpdate = Groceries.FirstOrDefault(g => string.Equals(g.Name, NewGrocery.Name, StringComparison.OrdinalIgnoreCase));
-                groceryToUpdate.Name = NewGrocery.Name;
-                groceryToUpdate.Quantity = NewGrocery.Quantity;
-                groceryToUpdate.Description = NewGrocery.Description;
-                await _httpService.HttpUpdateGrocery(groceryToUpdate);
+                var updatedGrocery = Management.GroceryManagement.GroceryToUpdate(Groceries, NewGrocery);
+                await _httpService.HttpUpdateGrocery(updatedGrocery);
             }
             //else
             //    throw new ArgumentNullException(nameof(NewGrocery));

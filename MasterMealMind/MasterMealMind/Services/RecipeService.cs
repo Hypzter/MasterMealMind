@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace MasterMealMind.Services
 {
-    public class RecipeService
+    public class RecipeService : IRecipeService
     {
 
         private static readonly string _baseUrl = "https://handla.api.ica.se/";
@@ -18,7 +18,7 @@ namespace MasterMealMind.Services
         }
 
 
-        static async Task<string> GetAuthenticationTicket(string username, string password)
+        public async Task<string> GetAuthenticationTicket(string username, string password)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -38,7 +38,7 @@ namespace MasterMealMind.Services
             }
         }
 
-        internal async Task<RecipeResult> GetRecipes()
+        public async Task<RecipeResult> GetRecipes()
         {
             string authenticationTicket = await GetAuthenticationTicket(_configuration["YourConfigKey:Username"], _configuration["YourConfigKey:Password"]);
 
@@ -60,7 +60,7 @@ namespace MasterMealMind.Services
             }
         }
 
-        internal async Task<SingleRecipe> GetOneRecipe()
+        public async Task<SingleRecipe> GetOneRecipe()
         {
             string authenticationTicket = await GetAuthenticationTicket(_configuration["YourConfigKey:Username"], _configuration["YourConfigKey:Password"]);
 
