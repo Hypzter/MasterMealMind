@@ -25,12 +25,8 @@ namespace MasterMealMind.Pages
             Groceries = await _httpService.HttpGetGroceriesRequest() ?? new List<Grocery>();
 
 			if (TempData.ContainsKey("EditedGrocery"))
-            {
 				NewGrocery = JsonConvert.DeserializeObject<Grocery>((string)TempData["EditedGrocery"]);
-            }
-
-
-
+            
 			return Page();
         }
         public async Task<IActionResult> OnPostAddGrocery()
