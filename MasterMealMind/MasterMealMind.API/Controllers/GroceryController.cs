@@ -19,7 +19,6 @@ namespace MasterMealMind.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<Grocery>> GetGroceriesAsync() => await _groceryRepository.GetAllGroceries();
 
-
         [HttpGet("{id}")]
         public async Task<Grocery> GetOneGroceryByIdAsync(int id) => await _groceryRepository.GetOneGrocery(id);
 
@@ -39,7 +38,7 @@ namespace MasterMealMind.API.Controllers
             {
                 return NotFound();
             }
-            await _groceryRepository.UpdateGrocery(updatedGrocery);
+            _groceryRepository.UpdateGrocery(updatedGrocery);
 
             return NoContent();
         }

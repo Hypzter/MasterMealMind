@@ -9,19 +9,19 @@ namespace MasterMealMind.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly HttpService _httpService;
+        private readonly IHttpService _httpService;
         private readonly RecipeService _recipeService;
 
 
 
         [BindProperty]
-        public Grocery Grocerie { get; set; }
+        public Grocery Grocery { get; set; }
         [BindProperty]
         public List<Grocery> Ingredients { get; set; }
         [BindProperty]
         public SingleRecipe Recipe { get; set; }
 
-        public IndexModel(HttpService httpService, RecipeService recipeService)
+        public IndexModel(IHttpService httpService, RecipeService recipeService)
         {
             _httpService = httpService;
             _recipeService = recipeService;
@@ -34,9 +34,9 @@ namespace MasterMealMind.Pages
         }
         public async Task<IActionResult> OnPostAddGrocerie() 
         {
-            if (Grocerie != null && Grocerie.Name != null)
+            if (Grocery != null && Grocery.Name != null)
             {
-                await _httpService.HttpPostGrocerie(Grocerie);
+                await _httpService.HttpPostGrocery(Grocery);
             }
             return RedirectToPage();
         }

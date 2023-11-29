@@ -4,49 +4,71 @@
 }
 
 <div class="container">
-    <form method="post" asp-page-handler="AddGrocery" class="form-inline">
-        <p class="italic-bold-text">Lägg till matvara</p>
+		<p class="italic-bold-text">Lägg till matvara</p>
+	<form method="post" asp-page-handler="AddGrocery">
+		<div class="row">
+			<div class="form-group col-md-6">
 
-        <label for="Name" class="sr-only">Namn</label>
-        <input asp-for="NewGrocery.Name" type="text" class="form-control rounded-3 py-2 mb-4" id="Name" placeholder="Lägg till namn" />
+				<label for="Name" class="sr-only">Namn</label>
+				<input asp-for="NewGrocery.Name" type="text" class="form-control" id="Name" placeholder="Lägg till namn" />
+			</div>
+			<div class="form-group col-md-6">
 
-        <label for="Quantity" class="sr-only">Antal</label>
-        <input asp-for="NewGrocery.Quantity" type="number" class="form-control rounded-3 py-2 mb-4" id="Quantity" />
+				<label for="Quantity" class="sr-only">Antal</label>
+				<input asp-for="NewGrocery.Quantity" type="number" class="form-control" id="Quantity" placeholder="Lägg till antal"/>
+			</div>
+		</div>
+		<div class="form-group">
 
-        <label for="Description" class="sr-only">Beskrivning</label>
-        <textarea asp-for="NewGrocery.Description" class="form-control rounded-3 py-2 mb-4" id="Description" placeholder="Lägg till beskrivning"></textarea>
+			<label for="Description" class="sr-only">Beskrivning</label>
+			<textarea asp-for="NewGrocery.Description" class="form-control" id="Description" placeholder="Lägg till beskrivning"></textarea>
+		</div>
 
-        <button class="btn btn-primary btn-block fa-lg mb-3" type="submit">Lägg till</button>
-    </form>
+		<button class="btn btn-primary btn-block fa-lg mb-3" type="submit">Lägg till / Ändra</button>
+	</form>
 
-    @if (Model.Groceries != null)
-    {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Namn</th>
-                    <th scope="col">Antal</th>
-                    <th scope="col">Beskrivning</th>
-                    <th scope="col">Ta bort</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var grocery in Model.Groceries)
-                {
-                    <tr>
-                        <td>@grocery.Name</td>
-                        <td>@grocery.Quantity</td>
-                        <td>@grocery.Description</td>
-                        <td>
-                            <form method="post" asp-page-handler="DeleteGrocery">
-                                <input type="hidden" name="deleteId" value="@grocery.Id">
-                                <button type="submit" class="btn btn-secondary">Ta bort</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
 
-            </tbody>
-        </table>
-    }
+
+	@if (Model.Groceries != null)
+	{
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Namn</th>
+					<th scope="col">Antal</th>
+					<th scope="col">Beskrivning</th>
+					<th scope="col">Ändra</th>
+					<th scope="col">Ta bort</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var grocery in Model.Groceries)
+				{
+					<tr>
+						<td>@grocery.Name</td>
+						<td>@grocery.Quantity</td>
+						<td>@grocery.Description</td>
+						<td>
+							<form method="post" asp-page-handler="EditGrocery">
+								<input type="hidden" name="editId" value="@grocery.Id">
+								<input asp-for="NewGrocery.Id" type="hidden" />
+								<input asp-for="NewGrocery.Name" type="hidden" />
+								<input asp-for="NewGrocery.Quantity" type="hidden" />
+								<input asp-for="NewGrocery.Description" type="hidden" />
+
+								<button type="submit" class="btn btn-warning">Ändra</button>
+							</form>
+						</td>
+						<td>
+							<form method="post" asp-page-handler="DeleteGrocery">
+								<input type="hidden" name="deleteId" value="@grocery.Id">
+								<button type="submit" class="btn btn-danger">Ta bort</button>
+							</form>
+						</td>
+					</tr>
+				}
+
+			</tbody>
+		</table>
+	}
 </div>
