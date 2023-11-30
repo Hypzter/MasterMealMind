@@ -1,5 +1,5 @@
-using MasterMealMind.API.DAL;
-using MasterMealMind.DAL;
+
+using MasterMealMind.API.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasterMealMind.API
@@ -15,7 +15,7 @@ namespace MasterMealMind.API
             builder.Services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddTransient<GroceryRepository>();
+            builder.Services.AddTransient<GroceryService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

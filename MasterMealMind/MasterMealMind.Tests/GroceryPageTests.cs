@@ -1,11 +1,10 @@
-using MasterMealMind.Models;
-using MasterMealMind.Services;
+using MasterMealMind.API.Models;
 using System.Net;
 using System.Text.Json;
 using Moq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MasterMealMind.Pages;
-using MasterMealMind.API.DAL;
+using MasterMealMind.Web.Pages;
+using MasterMealMind.Web.ApiServices;
 
 namespace MasterMealMind.Tests
 {
@@ -42,7 +41,7 @@ namespace MasterMealMind.Tests
         public async Task OnPostAddGrocery_WhenGroceryDoesNotExist_HttpPostGroceryCalled()
         {
             // Arrange
-            var httpServiceMock = new Mock<IHttpService>();
+            var httpServiceMock = new Mock<ILocalAPIService>();
             var pageModel = new GroceryPageModel(httpServiceMock.Object);
 
             var existingGroceries = new List<Grocery>
@@ -67,7 +66,7 @@ namespace MasterMealMind.Tests
         public async Task OnPostAddGrocery_WhenGroceryDoesExist_HttpUpdateGroceryCalled()
         {
             // Arrange
-            var httpServiceMock = new Mock<IHttpService>();
+            var httpServiceMock = new Mock<ILocalAPIService>();
             var existingGroceries = new List<Grocery>
             {
                 new Grocery { Id = 1, Name = "ExistingGrocery", Description = "EG", Quantity = 2 }

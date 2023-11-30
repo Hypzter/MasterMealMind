@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MasterMealMind.Models;
+using MasterMealMind.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MasterMealMind.DAL
+namespace MasterMealMind.API.Services
 {
     public class MyDbContext : DbContext
     {

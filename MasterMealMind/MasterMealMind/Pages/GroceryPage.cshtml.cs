@@ -1,28 +1,29 @@
-using MasterMealMind.Models;
-using MasterMealMind.Services;
+using MasterMealMind.API.Models;
+using MasterMealMind.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using MasterMealMind.Web.ApiServices;
 
-namespace MasterMealMind.Pages
+namespace MasterMealMind.Web.Pages
 {
     public class GroceryPageModel : PageModel
     {
-        private readonly IHttpService _httpService;
+        private readonly ILocalAPIService _localAPIService;
         public List<Grocery> Groceries { get; set; }
 
         [BindProperty]
         public Grocery NewGrocery { get; set; }
 
-        public GroceryPageModel(IHttpService httpService)
+        public GroceryPageModel(ILocalAPIService localAPIService)
         {
-            _httpService = httpService;
+            _localAPIService = localAPIService;
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Groceries = await _httpService.HttpGetGroceriesRequest() ?? new List<Grocery>();
+            Groceries = await _localAPIService.HttpGetGroceriesRequest() ?? new List<Grocery>();
 
 			if (TempData.ContainsKey("EditedGrocery"))
 				NewGrocery = JsonConvert.DeserializeObject<Grocery>((string)TempData["EditedGrocery"]);
@@ -31,14 +32,14 @@ namespace MasterMealMind.Pages
         }
         public async Task<IActionResult> OnPostAddGrocery()
         {
-            Groceries = await _httpService.HttpGetGroceriesRequest() ?? new List<Grocery>();
+            Groceries = await _localAPIService.HttpGetGroceriesRequest() ?? new List<Grocery>();
 
             if (NewGrocery != null && NewGrocery.Name != null && !Groceries.Any(g => g.Name == NewGrocery.Name))
-                await _httpService.HttpPostGrocery(NewGrocery);
+                await _localAPIService.HttpPostGrocery(NewGrocery);
             else if (NewGrocery != null && NewGrocery.Name != null && Groceries.FirstOrDefault(g => string.Equals(g.Name, NewGrocery.Name, StringComparison.OrdinalIgnoreCase)) is not null)
             {
-                var updatedGrocery = Management.GroceryManagement.GroceryToUpdate(Groceries, NewGrocery);
-                await _httpService.HttpUpdateGrocery(updatedGrocery);
+                var updatedGrocery = GroceryService.GroceryToUpdate(Groceries, NewGrocery);
+                await _localAPIService.HttpUpdateGrocery(updatedGrocery);
             }
             //else
             //    throw new ArgumentNullException(nameof(NewGrocery));
@@ -49,14 +50,14 @@ namespace MasterMealMind.Pages
 
         public async Task<IActionResult> OnPostDeleteGrocery([FromForm] int deleteId)
         {
-            await _httpService.HttpDeleteGrocery(deleteId.ToString());
+            await _localAPIService.HttpDeleteGrocery(deleteId.ToString());
 
 
             return RedirectToPage();
         }
         public async Task<IActionResult> OnPostEditGrocery([FromForm] int editId)
         {
-            var editedGrocery = await _httpService.HttpGetOneGroceryRequest(editId.ToString());
+            var editedGrocery = await _localAPIService.HttpGetOneGroceryRequest(editId.ToString());
             NewGrocery = editedGrocery;
             TempData["EditedGrocery"] = JsonConvert.SerializeObject(NewGrocery);
 			

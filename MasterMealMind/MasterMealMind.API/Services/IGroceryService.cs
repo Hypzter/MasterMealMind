@@ -1,9 +1,9 @@
-﻿using MasterMealMind.Models;
+﻿using MasterMealMind.API.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MasterMealMind.API.DAL
+namespace MasterMealMind.API.Services
 {
-    public interface IGroceryRepository
+    public interface IGroceryService
     {
         Task<List<Grocery>> GetAllGroceries();
 

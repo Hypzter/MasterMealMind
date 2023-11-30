@@ -1,15 +1,16 @@
-﻿using MasterMealMind.Models;
+﻿using MasterMealMind.API.Models;
 using System.Text.Json;
+using MasterMealMind.API.Controllers;
 
-namespace MasterMealMind.Services
+namespace MasterMealMind.Web.ApiServices
 {
-    public class HttpService : IHttpService
+    public class LocalAPIService : ILocalAPIService
     {
         private readonly HttpClient _httpClient;
         private const string Base_Address = "https://localhost:44338/api/";
         private const string Uri = "Grocery/";
 
-        public HttpService(HttpClient httpClient)
+        public LocalAPIService(HttpClient httpClient)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(Base_Address);

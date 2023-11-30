@@ -1,8 +1,8 @@
-﻿using MasterMealMind.Models;
+﻿using MasterMealMind.API.Models;
 
-namespace MasterMealMind.Services
+namespace MasterMealMind.Web.ApiServices
 {
-    public interface IHttpService
+    public interface ILocalAPIService
     {
         Task<List<Grocery>> HttpGetGroceriesRequest();
         Task<Grocery> HttpGetOneGroceryRequest(string requestUri);

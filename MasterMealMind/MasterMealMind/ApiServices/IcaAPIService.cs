@@ -1,19 +1,19 @@
-﻿using MasterMealMind.Models;
+﻿using MasterMealMind.API.Models;
 using Newtonsoft.Json;
 using System.Text;
 using Microsoft.Extensions.Configuration.UserSecrets;
 
-namespace MasterMealMind.Services
+namespace MasterMealMind.Web.ApiServices
 {
-    public class RecipeService : IRecipeService
+    public class IcaAPIService : IIcaAPIService
     {
 
         private static readonly string _baseUrl = "https://handla.api.ica.se/";
         private readonly IConfiguration _configuration;
-        public RecipeService()
+        public IcaAPIService()
         {
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-            configurationBuilder.AddUserSecrets<RecipeService>(); // Replace YourClass with the type where you want to access the secrets
+            configurationBuilder.AddUserSecrets<IcaAPIService>(); // Replace YourClass with the type where you want to access the secrets
             _configuration = configurationBuilder.Build();
         }
 
