@@ -19,7 +19,9 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore MasterMealMind/MasterMealMind/MasterMealMind.csproj
-    - name: Build
+    - name: Build Main-project
       run: dotnet build MasterMealMind/MasterMealMind/MasterMealMind.csproj --no-restore
+    - name: Build Test-project
+      run: dotnet build MasterMealMind/MasterMealMind.Tests/MasterMealMind.Tests.csproj --no-restore
     - name: Test
-      run: dotnet test MasterMealMind/MasterMealMind.Tests/MasterMealMind.Tests.csproj --verbosity normal
+      run: dotnet test MasterMealMind/MasterMealMind.Tests/MasterMealMind.Tests.csproj --no-build --verbosity normal
