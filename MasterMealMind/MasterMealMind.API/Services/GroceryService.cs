@@ -1,17 +1,17 @@
-﻿using MasterMealMind.DAL;
-using MasterMealMind.Models;
+﻿
+using MasterMealMind.API.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Reflection.Metadata.Ecma335;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace MasterMealMind.API.DAL
+namespace MasterMealMind.API.Services
 {
-    public class GroceryRepository : IGroceryRepository
+    public class GroceryService : IGroceryService
     {
         private readonly MyDbContext _context;
 
-        public GroceryRepository(MyDbContext context)
+        public GroceryService(MyDbContext context)
         {
             _context = context;
         }
@@ -54,6 +54,16 @@ namespace MasterMealMind.API.DAL
         public async Task<bool> GroceryExists(int id)
         {
             return await _context.Groceries.AnyAsync(g => g.Id == id);
+        }
+
+        public static Grocery GroceryToUpdate(List<Grocery> groceries, Grocery updatedGrocery)
+        {
+            var groceryToUpdate = groceries.FirstOrDefault(g => string.Equals(g.Name, updatedGrocery.Name, StringComparison.OrdinalIgnoreCase));
+            groceryToUpdate.Name = updatedGrocery.Name;
+            groceryToUpdate.Quantity = updatedGrocery.Quantity;
+            groceryToUpdate.Description = updatedGrocery.Description;
+
+            return groceryToUpdate;
         }
     }
 }

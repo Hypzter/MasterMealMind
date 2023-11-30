@@ -1,10 +1,10 @@
-﻿using MasterMealMind.Models;
+﻿using MasterMealMind.API.Models;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace MasterMealMind.Services
+namespace MasterMealMind.Web.ApiServices
 {
-    public interface IRecipeService
+    public interface IIcaAPIService
     {
         Task<string> GetAuthenticationTicket(string username, string password);
 

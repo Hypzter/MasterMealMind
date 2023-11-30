@@ -1,5 +1,5 @@
-﻿using MasterMealMind.API.DAL;
-using MasterMealMind.Models;
+﻿using MasterMealMind.API.Services;
+using MasterMealMind.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasterMealMind.API.Controllers
@@ -8,22 +8,22 @@ namespace MasterMealMind.API.Controllers
     [ApiController]
     public class GroceryController : ControllerBase
     {
-        private readonly GroceryRepository _groceryRepository;
+        private readonly GroceryService _groceryService;
 
-        public GroceryController(GroceryRepository grocerieRepository)
+        public GroceryController(GroceryService grocerieService)
         {
-            _groceryRepository = grocerieRepository;
+            _groceryService = grocerieService;
         }
 
 
         [HttpGet]
-        public async Task<IEnumerable<Grocery>> GetGroceriesAsync() => await _groceryRepository.GetAllGroceries();
+        public async Task<IEnumerable<Grocery>> GetGroceriesAsync() => await _groceryService.GetAllGroceries();
 
         [HttpGet("{id}")]
-        public async Task<Grocery> GetOneGroceryByIdAsync(int id) => await _groceryRepository.GetOneGrocery(id);
+        public async Task<Grocery> GetOneGroceryByIdAsync(int id) => await _groceryService.GetOneGrocery(id);
 
         [HttpPost]
-        public async Task CreateGroceryAsync([FromBody] Grocery grocery) => await _groceryRepository.CreateGrocery(grocery);
+        public async Task CreateGroceryAsync([FromBody] Grocery grocery) => await _groceryService.CreateGrocery(grocery);
 
 
         [HttpPut("{id}")]
@@ -34,11 +34,11 @@ namespace MasterMealMind.API.Controllers
             {
                 return BadRequest();
             }
-            if (!await _groceryRepository.GroceryExists(id))
+            if (!await _groceryService.GroceryExists(id))
             {
                 return NotFound();
             }
-            _groceryRepository.UpdateGrocery(updatedGrocery);
+            _groceryService.UpdateGrocery(updatedGrocery);
 
             return NoContent();
         }
@@ -46,12 +46,12 @@ namespace MasterMealMind.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGrocery(int id)
         {
-            if (!await _groceryRepository.GroceryExists(id))
+            if (!await _groceryService.GroceryExists(id))
             {
                 return NotFound();
             }
 
-            _groceryRepository.DeleteGrocery(id);
+            _groceryService.DeleteGrocery(id);
 
             return Ok();
         }
