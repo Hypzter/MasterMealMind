@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using MasterMealMind.Web.ApiServices;
+using System.Linq;
 
 namespace MasterMealMind.Web.Pages
 {
@@ -63,6 +64,31 @@ namespace MasterMealMind.Web.Pages
 			
 
 			return RedirectToPage();
+		}
+
+		public async Task<IActionResult> OnPostAddToIngredientSearchList([FromForm] string selectedGroceryNames)
+		{
+            if (selectedGroceryNames is null)
+                return RedirectToPage();
+
+            //         var selectedNames = selectedGroceryNames.Split(',').ToList();
+            //         GroceryService.SetIngredientSearchList(selectedNames);
+
+
+            //Groceries = await _localAPIService.HttpGetGroceriesRequest() ?? new List<Grocery>();
+
+            //foreach (var grocery in Groceries.Where(p => selectedNames.Any(id => id == p.Id)))
+            //{
+            //	if (ingredientSearchList.Count == 0 || !ingredientSearchList.Contains(grocery.Name))
+            //	{
+            //		ingredientSearchList.Add(grocery.Name);
+            //	}
+            //}
+
+
+
+
+            return Page();
 		}
 	}
 }

@@ -34,6 +34,14 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th scope="col">
+						<form method="post" asp-page-handler="AddToIngredientSearchList" id="formSelectedGroceryNames">
+							<input type="hidden" name="selectedGroceryNames" id="selectedGroceryNames" />
+							<button class="btn" type="submit">
+								Lägg till
+							</button>
+						</form>
+					</th>
 					<th scope="col">Namn</th>
 					<th scope="col">Antal</th>
 					<th scope="col">Beskrivning</th>
@@ -45,6 +53,7 @@
 				@foreach (var grocery in Model.Groceries)
 				{
 					<tr>
+						<td><input type="checkbox" class="product-checkbox" data-grocery-name="@grocery.Name" value="@grocery.Name"/></td>
 						<td>@grocery.Name</td>
 						<td>@grocery.Quantity</td>
 						<td>@grocery.Description</td>
@@ -67,3 +76,46 @@
 		</table>
 	}
 </div>
+@* <script>
+	var selectedIds = [];
+	var checkboxes = document.querySelectorAll('.product-checkbox');
+	function updateSelectedIds() {
+		selectedIds = Array.from(checkboxes)
+			.filter(function (checkbox) {
+				return checkbox.checked;
+			})
+			.map(function (checkbox) {
+				return checkbox.getAttribute('data-product-id');
+			});
+
+		// Update the hidden input field with selected IDs
+		document.getElementById('selectedProductIds').value = selectedIds.join(',');
+	}
+
+	var allChecked = false;
+	checkboxes.forEach(function (checkbox) {
+		checkbox.addEventListener('change', function () {
+			var notAllChecked = false;
+
+			checkboxes.forEach(function (checkbox) {
+				if (!checkbox.checked) {
+					notAllChecked = true;
+				}
+			});
+
+			allChecked = !notAllChecked; // Update allChecked based on all checkboxes status
+			updateIcon(allChecked);
+			updateSelectedIds();
+		});
+	});
+
+	const getGroceries = (event) => {
+		event.preventDefault()
+		let checkboxes = document.getElementsByClassName("product-checkbox")
+		let boxArray = Array.from(checkboxes)
+		let checkedIngredients = boxArray.filter(e => e.checked == true).map(e => e.dataset.groceryName)
+		console.log(checkedIngredients)
+		document.getElementById('selectedGroceryNames').value = checkedIngredients.join(','); // Joining the array into a comma-separated string
+		// document.getElementById("formSelectedGroceryNames").submit()
+	}
+</script> *@
