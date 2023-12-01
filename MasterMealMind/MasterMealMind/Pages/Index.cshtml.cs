@@ -20,8 +20,10 @@ namespace MasterMealMind.Web.Pages
         public List<Grocery> Ingredients { get; set; }
         [BindProperty]
         public SingleRecipe Recipe { get; set; }
+		public RecipeResult RecipeResult { get; set; }
 
-        public IndexModel(ILocalAPIService localAPIService, IcaAPIService icaAPIService)
+
+		public IndexModel(ILocalAPIService localAPIService, IcaAPIService icaAPIService)
         {
             _localAPIService = localAPIService;
             _icaAPIService = icaAPIService;
@@ -30,6 +32,7 @@ namespace MasterMealMind.Web.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             Recipe = await _icaAPIService.GetOneRecipe();
+            RecipeResult = await _icaAPIService.GetRecipes();
             return Page();
         }
         public async Task<IActionResult> OnPostAddGrocerie() 

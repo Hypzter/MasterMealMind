@@ -12,4 +12,13 @@
     {
         <p>@Model.Recipe.Title</p>
     }
+
+    @if (Model.RecipeResult != null)
+    {
+        <p>@Model.RecipeResult.Recipes.Count</p>
+        @foreach (var r in Model.RecipeResult.Recipes)
+        {
+            <p>@r.Title</p>
+        }
+    }
 </div>

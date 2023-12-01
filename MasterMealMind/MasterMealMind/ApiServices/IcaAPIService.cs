@@ -50,7 +50,7 @@ namespace MasterMealMind.Web.ApiServices
                 client.DefaultRequestHeaders.Add("AuthenticationTicket", authenticationTicket);
 
                 // Make a GET request to /api/recipes/searchwithfilters
-                HttpResponseMessage response = await client.GetAsync($"{_baseUrl}/api/recipes/searchwithfilters?recordsPerPage=40&pageNumber=1&phrase=chorizo&sorting=0");
+                HttpResponseMessage response = await client.GetAsync($"{_baseUrl}/api/recipes/searchwithfilters?recordsPerPage=40&pageNumber=1&phrase={"korv potatis"}&sorting=0");
                 response.EnsureSuccessStatusCode();
 
                 // Read and deserialize the response content (JSON)

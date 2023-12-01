@@ -10,13 +10,32 @@ namespace MasterMealMind.API.Services
     public class GroceryService : IGroceryService
     {
         private readonly MyDbContext _context;
+		private static string _ingredientSearch { get; set; }
 
-        public GroceryService(MyDbContext context)
+		public GroceryService(MyDbContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Grocery>> GetAllGroceries()
+        public static string GetIngredientSearch()
+        {
+            if (_ingredientSearch is null)
+                _ingredientSearch = string.Empty;
+            
+            return _ingredientSearch;
+        }
+
+        public static void SetIngredientSearch(string ingredientSearchList)
+        {
+            _ingredientSearch = ingredientSearchList;
+        }
+
+        public static void ClearIngredientSearch()
+        {
+            _ingredientSearch = string.Empty;
+        }
+
+		public async Task<List<Grocery>> GetAllGroceries()
         {
             return await _context.Groceries.ToListAsync();
         }
