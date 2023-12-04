@@ -2,28 +2,15 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    // Hello my friend
+
 }
 <div class="container">
     <div class="text-center">
-
-
-        @if (Model.Recipe != null)
-        {
-            <p>@Model.Recipe.Title</p>
-        }
-
-
+        <h4>Receptförslag</h4>
 		@if (Model.RecipeResult != null)
 		{
-            <p>@Model.RecipeResult.Msg</p>
+            
 			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">Recept</th>
-						<th scope="col"></th>
-					</tr>
-				</thead>
 				<tbody>
                     @foreach (var recipe in Model.RecipeResult.Recipes)
                     {
