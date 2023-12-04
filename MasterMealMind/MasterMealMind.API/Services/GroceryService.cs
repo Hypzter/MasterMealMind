@@ -1,5 +1,6 @@
 ﻿
 using MasterMealMind.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Reflection.Metadata.Ecma335;
@@ -10,18 +11,19 @@ namespace MasterMealMind.API.Services
     public class GroceryService : IGroceryService
     {
         private readonly MyDbContext _context;
-		private static string _ingredientSearch { get; set; }
+        private static string _ingredientSearch { get; set; }
 
-		public GroceryService(MyDbContext context)
+        public GroceryService(MyDbContext context)
         {
             _context = context;
+            _ingredientSearch = string.Empty;
         }
 
         public static string GetIngredientSearch()
         {
             if (_ingredientSearch is null)
                 _ingredientSearch = string.Empty;
-            
+
             return _ingredientSearch;
         }
 
@@ -35,7 +37,7 @@ namespace MasterMealMind.API.Services
             _ingredientSearch = string.Empty;
         }
 
-		public async Task<List<Grocery>> GetAllGroceries()
+        public async Task<List<Grocery>> GetAllGroceries()
         {
             return await _context.Groceries.ToListAsync();
         }
@@ -81,6 +83,8 @@ namespace MasterMealMind.API.Services
             groceryToUpdate.Name = updatedGrocery.Name;
             groceryToUpdate.Quantity = updatedGrocery.Quantity;
             groceryToUpdate.Description = updatedGrocery.Description;
+            groceryToUpdate.Unit = updatedGrocery.Unit;
+            groceryToUpdate.Storage = updatedGrocery.Storage;
 
             return groceryToUpdate;
         }

@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 using System.Text;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using MasterMealMind.API.Services;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace MasterMealMind.Web.ApiServices
 {
     public class IcaAPIService : IIcaAPIService
     {
-
         private static readonly string _baseUrl = "https://handla.api.ica.se/";
         private readonly IConfiguration _configuration;
         public IcaAPIService()
@@ -47,6 +47,8 @@ namespace MasterMealMind.Web.ApiServices
             {
                 RecipeResult result = null;
                 var phrase = GroceryService.GetIngredientSearch();
+
+
 
                 // Add AuthenticationTicket to the request headers
                 client.DefaultRequestHeaders.Add("AuthenticationTicket", authenticationTicket);
