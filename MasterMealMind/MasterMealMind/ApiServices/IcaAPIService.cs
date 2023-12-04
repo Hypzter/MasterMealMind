@@ -62,24 +62,24 @@ namespace MasterMealMind.Web.ApiServices
             }
         }
 
-        public async Task<SingleRecipe> GetOneRecipe()
+        public async Task<Recipe> GetOneRecipe(int recipeId)
         {
             string authenticationTicket = await GetAuthenticationTicket(_configuration["YourConfigKey:Username"], _configuration["YourConfigKey:Password"]);
 
             using (HttpClient client = new HttpClient())
             {
-                SingleRecipe result = null;
+                Recipe result = null;
 
                 // Add AuthenticationTicket to the request headers
                 client.DefaultRequestHeaders.Add("AuthenticationTicket", authenticationTicket);
 
                 // Make a GET request to /api/recipes/searchwithfilters
-                HttpResponseMessage response = await client.GetAsync($"{_baseUrl}/api/recipes/recipe/713666");
+                HttpResponseMessage response = await client.GetAsync($"{_baseUrl}/api/recipes/recipe/{recipeId}");
                 response.EnsureSuccessStatusCode();
 
                 // Read and deserialize the response content (JSON)
                 string responseBody = await response.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<SingleRecipe>(responseBody);
+                result = JsonConvert.DeserializeObject<Recipe>(responseBody);
                 return result;
             }
         }

@@ -10,6 +10,6 @@ namespace MasterMealMind.Web.ApiServices
 
         Task<RecipeResult> GetRecipes();
 
-        Task<SingleRecipe> GetOneRecipe();
+        Task<Recipe> GetOneRecipe(int recipeId);
     }
 }
