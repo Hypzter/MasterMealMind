@@ -71,6 +71,9 @@ namespace MasterMealMind.Web.Pages
             if (selectedGroceryNames is null)
                 return RedirectToPage();
 
+
+            GroceryService.SetIngredientSearch(selectedGroceryNames);
+
             //         var selectedNames = selectedGroceryNames.Split(',').ToList();
             //         GroceryService.SetIngredientSearchList(selectedNames);
 
@@ -88,7 +91,7 @@ namespace MasterMealMind.Web.Pages
 
 
 
-            return Page();
+            return RedirectToPage();
 		}
 	}
 }

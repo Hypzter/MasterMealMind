@@ -4,21 +4,45 @@
     ViewData["Title"] = "Home page";
     // Hello my friend
 }
+<div class="container">
+    <div class="text-center">
 
-<div class="text-center">
-    
 
-    @if(Model.Recipe != null)
-    {
-        <p>@Model.Recipe.Title</p>
-    }
+        @if (Model.Recipe != null)
+        {
+            <p>@Model.Recipe.Title</p>
+        }
 
-    @if (Model.RecipeResult != null)
-    {
+
+		@if (Model.RecipeResult != null)
+		{
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Recept</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var recipe in Model.RecipeResult.Recipes)
+				{
+					<tr>
+						<td>@recipe.Title</td>
+							<td><img src="@recipe.ImageUrl" height="150"></td>
+					</tr>
+				}
+
+				</tbody>
+			</table>
+		}
+
+        @* @if (Model.RecipeResult != null)
+        {
         <p>@Model.RecipeResult.Recipes.Count</p>
         @foreach (var r in Model.RecipeResult.Recipes)
         {
-            <p>@r.Title</p>
+        <p>@r.Title</p>
         }
-    }
+        } *@
+    </div>
 </div>

@@ -15,7 +15,7 @@ function updateSelectedIds() {
 		});
 
 	// Update the hidden input field with selected IDs
-	document.getElementById('selectedGroceryNames').value = selectedIds.join(', ');
+	document.getElementById('selectedGroceryNames').value = selectedIds.join(' ');
 }
 
 var allChecked = false;
