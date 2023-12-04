@@ -12,14 +12,6 @@ namespace MasterMealMind.Web.Pages
         private readonly ILocalAPIService _localAPIService;
         private readonly IcaAPIService _icaAPIService;
 
-
-
-        [BindProperty]
-        public Grocery Grocery { get; set; }
-        [BindProperty]
-        public List<Grocery> Ingredients { get; set; }
-        [BindProperty]
-        public Recipe Recipe { get; set; }
 		public RecipeResult RecipeResult { get; set; }
 
 
@@ -34,14 +26,5 @@ namespace MasterMealMind.Web.Pages
             RecipeResult = await _icaAPIService.GetRecipes();
             return Page();
         }
-        public async Task<IActionResult> OnPostAddGrocerie() 
-        {
-            if (Grocery != null && Grocery.Name != null)
-            {
-                await _localAPIService.HttpPostGrocery(Grocery);
-            }
-            return RedirectToPage();
-        }
-
     }
 }
