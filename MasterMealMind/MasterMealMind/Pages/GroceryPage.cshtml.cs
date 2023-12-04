@@ -70,28 +70,8 @@ namespace MasterMealMind.Web.Pages
 		{
             if (selectedGroceryNames is null)
                 return RedirectToPage();
-
-
             GroceryService.SetIngredientSearch(selectedGroceryNames);
-
-            //         var selectedNames = selectedGroceryNames.Split(',').ToList();
-            //         GroceryService.SetIngredientSearchList(selectedNames);
-
-
-            //Groceries = await _localAPIService.HttpGetGroceriesRequest() ?? new List<Grocery>();
-
-            //foreach (var grocery in Groceries.Where(p => selectedNames.Any(id => id == p.Id)))
-            //{
-            //	if (ingredientSearchList.Count == 0 || !ingredientSearchList.Contains(grocery.Name))
-            //	{
-            //		ingredientSearchList.Add(grocery.Name);
-            //	}
-            //}
-
-
-
-
-            return RedirectToPage();
+                return RedirectToPage("/Index");
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace MasterMealMind.Web.Pages
         [BindProperty]
         public List<Grocery> Ingredients { get; set; }
         [BindProperty]
-        public SingleRecipe Recipe { get; set; }
+        public Recipe Recipe { get; set; }
 		public RecipeResult RecipeResult { get; set; }
 
 
@@ -31,7 +31,6 @@ namespace MasterMealMind.Web.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Recipe = await _icaAPIService.GetOneRecipe();
             RecipeResult = await _icaAPIService.GetRecipes();
             return Page();
         }
