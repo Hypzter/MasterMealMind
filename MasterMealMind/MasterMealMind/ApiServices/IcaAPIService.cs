@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Text;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using MasterMealMind.API.Services;
 
 namespace MasterMealMind.Web.ApiServices
 {
@@ -45,12 +46,13 @@ namespace MasterMealMind.Web.ApiServices
             using (HttpClient client = new HttpClient())
             {
                 RecipeResult result = null;
+                var phrase = GroceryService.GetIngredientSearch();
 
                 // Add AuthenticationTicket to the request headers
                 client.DefaultRequestHeaders.Add("AuthenticationTicket", authenticationTicket);
 
                 // Make a GET request to /api/recipes/searchwithfilters
-                HttpResponseMessage response = await client.GetAsync($"{_baseUrl}/api/recipes/searchwithfilters?recordsPerPage=40&pageNumber=1&phrase={"korv potatis"}&sorting=0");
+                HttpResponseMessage response = await client.GetAsync($"{_baseUrl}/api/recipes/searchwithfilters?recordsPerPage=40&pageNumber=1&phrase={phrase}&sorting=0");
                 response.EnsureSuccessStatusCode();
 
                 // Read and deserialize the response content (JSON)
