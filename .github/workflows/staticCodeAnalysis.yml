@@ -1,0 +1,19 @@
+name: Code Analysis
+
+on: workflow_dispatch
+
+jobs:
+  code-analysis:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./MasterMealMind
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Run Code Analysis
+      run: dotnet clean && dotnet analyze
