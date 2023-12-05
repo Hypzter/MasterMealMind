@@ -4,10 +4,10 @@ namespace MasterMealMind.Web.ApiServices
 {
     public interface ILocalAPIService
     {
-        Task<List<Grocery>> HttpGetGroceriesRequest();
-        Task<Grocery> HttpGetOneGroceryRequest(string requestUri);
-		Task<bool> HttpPostGrocery(Grocery grocery);
-        Task<bool> HttpDeleteGrocery(string requestUri);
-        Task<bool> HttpUpdateGrocery(Grocery grocery);
+        Task<List<Grocery>> HttpGetGroceriesAsync();
+        Task<Grocery> HttpGetOneGroceryAsync(string requestUri);
+		Task<bool> HttpPostGroceryAsync(Grocery grocery);
+        Task<bool> HttpDeleteGroceryAsync(string requestUri);
+        Task<bool> HttpUpdateGroceryAsync(Grocery grocery);
     }
 }

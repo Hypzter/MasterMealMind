@@ -1,10 +1,11 @@
 ﻿@page
+@using MasterMealMind.API.Enum;
 @model GroceryPageModel
 @{
 }
 
 <div class="container">
-		<p class="italic-bold-text">Lägg till matvara</p>
+	<p class="italic-bold-text">Lägg till matvara</p>
 	<form method="post" asp-page-handler="AddGrocery">
 		<div class="row">
 			<div class="form-group col-md-6">
@@ -15,13 +16,25 @@
 			<div class="form-group col-md-6">
 
 				<label for="Quantity" class="sr-only">Antal</label>
-				<input asp-for="NewGrocery.Quantity" type="number" class="form-control" id="Quantity" placeholder="Lägg till antal"/>
+				<input asp-for="NewGrocery.Quantity" type="number" class="form-control" id="Quantity" placeholder="Lägg till antal" />
 			</div>
 		</div>
 		<div class="form-group">
 
 			<label for="Description" class="sr-only">Beskrivning</label>
 			<textarea asp-for="NewGrocery.Description" class="form-control" id="Description" placeholder="Lägg till beskrivning"></textarea>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-6">
+				<select asp-for="NewGrocery.Unit" asp-items="Html.GetEnumSelectList<UnitType>()" class="form-control">
+					<option value="">Enhet</option>
+				</select>
+			</div>
+			<div class="form-group col-md-6">
+				<select asp-for="NewGrocery.Storage" asp-items="Html.GetEnumSelectList<Storage>()" class="form-control">
+					<option value="">Förvaring</option>
+				</select>
+			</div>
 		</div>
 
 		<button class="btn btn-primary btn-block fa-lg mb-3" type="submit">Lägg till / Ändra</button>
@@ -43,7 +56,8 @@
 						</form>
 					</th>
 					<th scope="col">Namn</th>
-					<th scope="col">Antal</th>
+					<th scope="col">Mängd</th>
+					<th scope="col">Förvaring</th>
 					<th scope="col">Beskrivning</th>
 					<th scope="col">Ändra</th>
 					<th scope="col">Ta bort</th>
@@ -53,9 +67,10 @@
 				@foreach (var grocery in Model.Groceries)
 				{
 					<tr>
-						<td><input type="checkbox" class="product-checkbox" data-grocery-name="@grocery.Name" value="@grocery.Name"/></td>
+						<td><input type="checkbox" class="product-checkbox" data-grocery-name="@grocery.Name" value="@grocery.Name" /></td>
 						<td>@grocery.Name</td>
-						<td>@grocery.Quantity</td>
+						<td>@grocery.Quantity @grocery.Unit</td>
+						<td>@grocery.Storage</td>
 						<td>@grocery.Description</td>
 						<td>
 							<form method="post" asp-page-handler="EditGrocery">
@@ -76,46 +91,3 @@
 		</table>
 	}
 </div>
-@* <script>
-	var selectedIds = [];
-	var checkboxes = document.querySelectorAll('.product-checkbox');
-	function updateSelectedIds() {
-		selectedIds = Array.from(checkboxes)
-			.filter(function (checkbox) {
-				return checkbox.checked;
-			})
-			.map(function (checkbox) {
-				return checkbox.getAttribute('data-product-id');
-			});
-
-		// Update the hidden input field with selected IDs
-		document.getElementById('selectedProductIds').value = selectedIds.join(',');
-	}
-
-	var allChecked = false;
-	checkboxes.forEach(function (checkbox) {
-		checkbox.addEventListener('change', function () {
-			var notAllChecked = false;
-
-			checkboxes.forEach(function (checkbox) {
-				if (!checkbox.checked) {
-					notAllChecked = true;
-				}
-			});
-
-			allChecked = !notAllChecked; // Update allChecked based on all checkboxes status
-			updateIcon(allChecked);
-			updateSelectedIds();
-		});
-	});
-
-	const getGroceries = (event) => {
-		event.preventDefault()
-		let checkboxes = document.getElementsByClassName("product-checkbox")
-		let boxArray = Array.from(checkboxes)
-		let checkedIngredients = boxArray.filter(e => e.checked == true).map(e => e.dataset.groceryName)
-		console.log(checkedIngredients)
-		document.getElementById('selectedGroceryNames').value = checkedIngredients.join(','); // Joining the array into a comma-separated string
-		// document.getElementById("formSelectedGroceryNames").submit()
-	}
-</script> *@

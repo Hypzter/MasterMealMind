@@ -9,15 +9,13 @@ namespace MasterMealMind.Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILocalAPIService _localAPIService;
-        private readonly IcaAPIService _icaAPIService;
+        private readonly IIcaAPIService _icaAPIService;
 
 		public RecipeResult RecipeResult { get; set; }
 
 
-		public IndexModel(ILocalAPIService localAPIService, IcaAPIService icaAPIService)
+		public IndexModel(IIcaAPIService icaAPIService)
         {
-            _localAPIService = localAPIService;
             _icaAPIService = icaAPIService;
         }
 

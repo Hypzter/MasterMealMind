@@ -8,9 +8,9 @@ namespace MasterMealMind.API.Controllers
     [ApiController]
     public class GroceryController : ControllerBase
     {
-        private readonly GroceryService _groceryService;
+        private readonly IGroceryService _groceryService;
 
-        public GroceryController(GroceryService grocerieService)
+        public GroceryController(IGroceryService grocerieService)
         {
             _groceryService = grocerieService;
         }
@@ -38,9 +38,9 @@ namespace MasterMealMind.API.Controllers
             {
                 return NotFound();
             }
-            _groceryService.UpdateGrocery(updatedGrocery);
+            await _groceryService.UpdateGrocery(updatedGrocery);
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("{id}")]

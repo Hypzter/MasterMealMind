@@ -7,10 +7,10 @@ namespace MasterMealMind.Web.Pages
 {
     public class RecipeDetailsPageModel : PageModel
     {
-        private readonly IcaAPIService _icaAPIService;
+        private readonly IIcaAPIService _icaAPIService;
 
         public Recipe Recipe { get; set; }
-        public RecipeDetailsPageModel(IcaAPIService icaAPIService)
+        public RecipeDetailsPageModel(IIcaAPIService icaAPIService)
         {
             _icaAPIService = icaAPIService;
         }

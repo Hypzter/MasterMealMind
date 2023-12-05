@@ -15,7 +15,7 @@ namespace MasterMealMind.API
             builder.Services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddTransient<GroceryService>();
+            builder.Services.AddScoped<IGroceryService, GroceryService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

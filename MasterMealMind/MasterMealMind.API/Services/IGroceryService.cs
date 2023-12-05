@@ -5,7 +5,7 @@ namespace MasterMealMind.API.Services
 {
     public interface IGroceryService
     {
-        Task<List<Grocery>> GetAllGroceries();
+		Task<List<Grocery>> GetAllGroceries();
 
         Task<Grocery> GetOneGrocery(int id);
 

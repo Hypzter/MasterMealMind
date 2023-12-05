@@ -1,3 +1,5 @@
+using MasterMealMind.API.Enum;
+using MasterMealMind.API.Services;
 using MasterMealMind.Web.ApiServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +13,9 @@ namespace MasterMealMind.Web
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddScoped<ILocalAPIService, LocalAPIService>();
-            builder.Services.AddScoped<HttpClient>();
-            builder.Services.AddScoped<IcaAPIService>();
-
+			builder.Services.AddScoped<ILocalAPIService, LocalAPIService>();
+			builder.Services.AddScoped<IIcaAPIService, IcaAPIService>();
+			builder.Services.AddScoped<HttpClient>();
 
 
 			var app = builder.Build();
