@@ -4,10 +4,7 @@
 name: .NET
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch
 
 jobs:
   build-and-test:
@@ -27,4 +24,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
+      env:
+        DB_CONNECTION_STRING: ${{ secrets.CONN_TOKEN }}
       run: dotnet test --no-build --verbosity normal
