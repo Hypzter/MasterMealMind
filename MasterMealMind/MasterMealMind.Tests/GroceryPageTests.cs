@@ -11,101 +11,69 @@ namespace MasterMealMind.Tests
 {
 	public class GroceryPageTests
 	{
-		//[Fact]
-		//public async Task HttpGetGroceriesRequest_ReturnsExpectedResult()
-		//{
-		//    // Arrange
-		//    var httpClientMock = new Mock<HttpClient>();
-		//    var httpService = new HttpService(httpClientMock.Object);
-
-		//    var expectedGroceries = new List<Grocery>
-		//    {
-		//        new Grocery { Id = 1, Name = "ExistingGrocery", Description = "EG", Quantity = 2 }
-		//    };
-
-		//    var jsonResult = JsonSerializer.Serialize(expectedGroceries);
-		//    var httpResponse = new HttpResponseMessage(HttpStatusCode.OK)
-		//    {
-		//        Content = new StringContent(jsonResult)
-		//    };
-
-		//    httpClientMock.Setup(client => client.GetAsync(It.IsAny<string>())).ReturnsAsync(httpResponse);
-
-		//    // Act
-		//    var result = await httpService.HttpGetGroceriesRequest();
-
-		//    // Assert
-		//    Assert.Equal(expectedGroceries, result);
-		//}
-
 		[Fact]
 		public async Task OnPostAddGrocery_WhenGroceryDoesNotExist_HttpPostGroceryCalled()
 		{
 			// Arrange
-			var httpServiceMock = new Mock<ILocalAPIService>();
+			var mockLocalAPIservice = new Mock<ILocalAPIService>();
 
-			var pageModel = new GroceryPageModel(httpServiceMock.Object);
+			var sut = new GroceryPageModel(mockLocalAPIservice.Object);
 
 			var existingGroceries = new List<Grocery>
 			{
 				new Grocery { Id = 1, Name = "ExistingGrocery", Description = "EG", Quantity = 2 }
 			};
 
-			pageModel.Groceries = existingGroceries;
+			sut.Groceries = existingGroceries;
 
-			pageModel.NewGrocery = new Grocery { Id = 2, Name = "NewGrocery", Description = "NG", Quantity = 1 };
+			sut.NewGrocery = new Grocery { Id = 2, Name = "NewGrocery", Description = "NG", Quantity = 1 };
 
 			// Act
-			await pageModel.OnPostAddGrocery();
+			await sut.OnPostAddOrUpdateGrocery();
 
 			// Assert
-			httpServiceMock.Verify(s => s.HttpPostGroceryAsync(pageModel.NewGrocery), Times.Once);
-			httpServiceMock.Verify(service => service.HttpUpdateGroceryAsync(It.IsAny<Grocery>()), Times.Never);
-
+			mockLocalAPIservice.Verify(s => s.HttpPostGroceryAsync(sut.NewGrocery), Times.Once);
+			mockLocalAPIservice.Verify(service => service.HttpUpdateGroceryAsync(It.IsAny<Grocery>()), Times.Never);
 		}
 
 		[Fact]
 		public async Task OnPostAddGrocery_WhenGroceryDoesExist_HttpUpdateGroceryCalled()
 		{
 			// Arrange
-			var httpServiceMock = new Mock<ILocalAPIService>();
+			var mockLocalAPIService = new Mock<ILocalAPIService>();
 
 			var existingGroceries = new List<Grocery>
 			{
 				new Grocery { Id = 1, Name = "ExistingGrocery", Description = "EG", Quantity = 2 }
 			};
 
-			httpServiceMock.Setup(s => s.HttpGetGroceriesAsync()).ReturnsAsync(existingGroceries);
+			mockLocalAPIService.Setup(s => s.HttpGetGroceriesAsync()).ReturnsAsync(existingGroceries);
 
-			var pageModel = new GroceryPageModel(httpServiceMock.Object);
+			var sut = new GroceryPageModel(mockLocalAPIService.Object);
 
-			pageModel.NewGrocery = new Grocery { Id = 2, Name = "ExistingGrocery", Description = "EG", Quantity = 1 };
+			sut.NewGrocery = new Grocery { Id = 2, Name = "ExistingGrocery", Description = "EG", Quantity = 1 };
 
 
 			// Act
-			await pageModel.OnPostAddGrocery();
+			await sut.OnPostAddOrUpdateGrocery();
 
 			// Assert
-			httpServiceMock.Verify(service => service.HttpUpdateGroceryAsync(It.IsAny<Grocery>()), Times.Once);
-			httpServiceMock.Verify(s => s.HttpPostGroceryAsync(pageModel.NewGrocery), Times.Never);
+			mockLocalAPIService.Verify(service => service.HttpUpdateGroceryAsync(It.IsAny<Grocery>()), Times.Once);
+			mockLocalAPIService.Verify(s => s.HttpPostGroceryAsync(sut.NewGrocery), Times.Never);
 		}
-
-		// Förutsätt att du har en implementation av ILocalAPIService och en implementering av GroceryService.
-
-
 
 		[Fact]
 		public async Task OnPostAddGrocery_ShouldAddNewGrocery_WhenNewGroceryIsValid()
 		{
 			// Arrange
 			var mockLocalAPIService = new Mock<ILocalAPIService>();
-			var model = new GroceryPageModel(mockLocalAPIService.Object)
+			var sut = new GroceryPageModel(mockLocalAPIService.Object)
 			{
 				NewGrocery = new Grocery { Name = "NewGrocery", Quantity = 10 }
 			};
 
 			// Act
-			await model.OnPostAddGrocery();
+			await sut.OnPostAddOrUpdateGrocery();
 
 			// Assert
 			mockLocalAPIService.Verify(s => s.HttpPostGroceryAsync(It.IsAny<Grocery>()), Times.Once);
@@ -117,21 +85,17 @@ namespace MasterMealMind.Tests
 			// Arrange
 			var mockLocalAPIService = new Mock<ILocalAPIService>();
 
-			var model = new GroceryPageModel(mockLocalAPIService.Object)
+			var sut = new GroceryPageModel(mockLocalAPIService.Object)
 			{
 				Groceries = new List<Grocery> { new Grocery { Id = 1, Name = "ExistingGrocery", Quantity = 10 } },
 				NewGrocery = new Grocery { Id = 2, Name = "UpdatedGrocery", Quantity = 20 }
 			};
 
 			// Act
-			await model.OnPostAddGrocery();
+			await sut.OnPostAddOrUpdateGrocery();
 
 			// Assert
 			mockLocalAPIService.Verify(s => s.HttpPostGroceryAsync(It.IsAny<Grocery>()), Times.Once);
 		}
-
-
-
-
 	}
 }
