@@ -18,6 +18,9 @@ jobs:
       with:
         dotnet-version: '7.0.x'  # Adjust the version as needed
 
+    - name: Build
+      run: dotnet build
+
     - name: Install SpellChecker tool
       run: dotnet tool install -g dotnet-spellchecker
 
