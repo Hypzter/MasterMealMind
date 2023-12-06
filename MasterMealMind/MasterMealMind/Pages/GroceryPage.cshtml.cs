@@ -30,9 +30,6 @@ namespace MasterMealMind.Web.Pages
 
 			if (TempData.ContainsKey("EditedGrocery"))
 				NewGrocery = JsonConvert.DeserializeObject<Grocery>((string)TempData["EditedGrocery"]);
-
-            else
-                NewGrocery = new Grocery();
             
 			return Page();
         }

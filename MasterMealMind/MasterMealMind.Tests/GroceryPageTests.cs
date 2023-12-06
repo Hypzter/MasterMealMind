@@ -12,7 +12,7 @@ namespace MasterMealMind.Tests
 	public class GroceryPageTests
 	{
 		[Fact]
-		public async Task OnPostAddGrocery_WhenGroceryDoesNotExist_HttpPostGroceryCalled()
+		public async Task OnPostAddOrUpdateGrocery_WhenGroceryDoesNotExist_HttpPostGroceryCalled()
 		{
 			// Arrange
 			var mockLocalAPIservice = new Mock<ILocalAPIService>();
@@ -37,7 +37,7 @@ namespace MasterMealMind.Tests
 		}
 
 		[Fact]
-		public async Task OnPostAddGrocery_WhenGroceryDoesExist_HttpUpdateGroceryCalled()
+		public async Task OnPostAddOrUpdateGrocery_WhenGroceryDoesExist_HttpUpdateGroceryCalled()
 		{
 			// Arrange
 			var mockLocalAPIService = new Mock<ILocalAPIService>();
@@ -63,7 +63,7 @@ namespace MasterMealMind.Tests
 		}
 
 		[Fact]
-		public async Task OnPostAddGrocery_ShouldAddNewGrocery_WhenNewGroceryIsValid()
+		public async Task OnPostAddOrUpdateGrocery_ShouldAddNewGrocery_WhenNewGroceryIsValid()
 		{
 			// Arrange
 			var mockLocalAPIService = new Mock<ILocalAPIService>();
@@ -80,7 +80,7 @@ namespace MasterMealMind.Tests
 		}
 
 		[Fact]
-		public async Task OnPostAddGrocery_ShouldUpdateExistingGrocery_WhenNewGroceryExists()
+		public async Task OnPostAddOrUpdateGrocery_ShouldUpdateExistingGrocery_WhenNewGroceryExists()
 		{
 			// Arrange
 			var mockLocalAPIService = new Mock<ILocalAPIService>();
