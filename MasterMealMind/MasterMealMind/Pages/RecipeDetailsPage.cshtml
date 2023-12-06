@@ -22,7 +22,7 @@
     <br />
     <div class="row">
         <div class="col-6">
-            <table class="table table-striped border" aria-label="">
+            <table class="table table-striped border" aria-label="" aria-hidden="true">
                 @foreach (var ingredientGroup in Model.Recipe.IngredientGroups)
                 {
                     @if (ingredientGroup.GroupName != null)

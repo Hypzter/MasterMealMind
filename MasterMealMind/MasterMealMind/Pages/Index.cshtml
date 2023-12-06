@@ -18,24 +18,21 @@
 
 		@if (Model.RecipeResult != null)
 		{
-			<table class="table table-striped" aria-label="">
-				<thead></thead>
-				<tbody>
-					@foreach (var recipe in Model.RecipeResult.Recipes)
-					{
-						<tr>
-							<td>
-								<a asp-page="/RecipeDetailsPage" asp-route-recipeId="@recipe.Id">
-									@recipe.Title
-								</a>
-							</td>
-							<td>
-								<p>@recipe.PreambleHTML.ToString()</p>
-							</td>
-							<td><img src="@recipe.ImageUrl" height="150" alt="Bild på @recipe.Title"></td>
-						</tr>
-					}
-				</tbody>
+			<table class="table table-striped" aria-label="" aria-hidden="true">
+				@foreach (var recipe in Model.RecipeResult.Recipes)
+				{
+					<tr>
+						<td>
+							<a asp-page="/RecipeDetailsPage" asp-route-recipeId="@recipe.Id">
+								@recipe.Title
+							</a>
+						</td>
+						<td>
+							<p>@recipe.PreambleHTML.ToString()</p>
+						</td>
+						<td><img src="@recipe.ImageUrl" height="150" alt="Bild på @recipe.Title"></td>
+					</tr>
+				}
 			</table>
 		}
 	</div>
