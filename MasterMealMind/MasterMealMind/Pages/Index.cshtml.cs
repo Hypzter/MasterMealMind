@@ -1,4 +1,5 @@
 ﻿using MasterMealMind.API.Models;
+using MasterMealMind.API.Services;
 using MasterMealMind.Web.ApiServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,18 +12,26 @@ namespace MasterMealMind.Web.Pages
     {
         private readonly IIcaAPIService _icaAPIService;
 
-		public RecipeResult RecipeResult { get; set; }
+        public string SearchString { get; set; }
+
+        public RecipeResult RecipeResult { get; set; }
 
 
 		public IndexModel(IIcaAPIService icaAPIService)
         {
             _icaAPIService = icaAPIService;
+            SearchString = GroceryService.GetIngredientSearch();
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
             RecipeResult = await _icaAPIService.GetRecipes();
             return Page();
+        }
+        public IActionResult OnPostEmptySearch()
+        {
+            GroceryService.ClearIngredientSearch();
+            return RedirectToPage();
         }
     }
 }

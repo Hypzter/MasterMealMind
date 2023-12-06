@@ -47,6 +47,9 @@ namespace MasterMealMind.Web.ApiServices
             {
                 RecipeResult result = null;
                 var phrase = GroceryService.GetIngredientSearch();
+                string searchUri = $"searchwithfilters?recordsPerPage=40&pageNumber=1&phrase={phrase}&sorting=0";
+                if (phrase == string.Empty)
+                    searchUri = "random?numberofrecipes=10";
 
 
 
@@ -54,7 +57,7 @@ namespace MasterMealMind.Web.ApiServices
                 client.DefaultRequestHeaders.Add("AuthenticationTicket", authenticationTicket);
 
                 // Make a GET request to /api/recipes/searchwithfilters
-                HttpResponseMessage response = await client.GetAsync($"{_baseUrl}/api/recipes/searchwithfilters?recordsPerPage=40&pageNumber=1&phrase={phrase}&sorting=0");
+                HttpResponseMessage response = await client.GetAsync($"{_baseUrl}/api/recipes/{searchUri}");
                 response.EnsureSuccessStatusCode();
 
                 // Read and deserialize the response content (JSON)

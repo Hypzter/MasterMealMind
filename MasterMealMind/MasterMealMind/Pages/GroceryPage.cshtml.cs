@@ -36,7 +36,7 @@ namespace MasterMealMind.Web.Pages
             
 			return Page();
         }
-        public async Task<IActionResult> OnPostAddGrocery()
+        public async Task<IActionResult> OnPostAddOrUpdateGrocery()
         {
             Groceries = await _localAPIService.HttpGetGroceriesAsync() ?? new List<Grocery>();
 
@@ -74,7 +74,7 @@ namespace MasterMealMind.Web.Pages
 			return RedirectToPage();
 		}
 
-		public async Task<IActionResult> OnPostAddToIngredientSearchList([FromForm] string selectedGroceryNames)
+		public IActionResult OnPostAddToIngredientSearchList([FromForm] string selectedGroceryNames)
 		{
             if (selectedGroceryNames is null)
                 return RedirectToPage();
