@@ -1,0 +1,28 @@
+name: Spellcheck
+
+on: workflow_dispatch
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    defaults:
+      run: 
+        working-directory: ./MasterMealMind
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'  # Adjust the version as needed
+
+    - name: Install SpellChecker tool
+      run: dotnet tool install -g dotnet-spellchecker
+
+    - name: Spellcheck code
+      run: dotnet spellchecker check
+
+    - name: Cleanup
+      run: dotnet tool uninstall -g dotnet-spellchecker
