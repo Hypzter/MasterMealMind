@@ -25,6 +25,8 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Apply EF Core Migrations
+      run: dotnet ef database update --project MasterMealMind.API
     - name: Build
       run: dotnet build --no-restore
     - name: Test
