@@ -79,7 +79,7 @@ namespace MasterMealMind.API.Services
 
         public static Grocery GroceryToUpdate(List<Grocery> groceries, Grocery updatedGrocery)
         {
-            var groceryToUpdate = groceries.FirstOrDefault(g => string.Equals(g.Name, updatedGrocery.Name, StringComparison.OrdinalIgnoreCase)) ?? throw new NullReferenceException("updateGrocery");
+            var groceryToUpdate = groceries.FirstOrDefault(g => string.Equals(g.Name, updatedGrocery.Name, StringComparison.OrdinalIgnoreCase)) ?? throw new ArgumentNullException("updateGrocery");
             groceryToUpdate.Name = updatedGrocery.Name;
             groceryToUpdate.Quantity = updatedGrocery.Quantity;
             groceryToUpdate.Description = updatedGrocery.Description;
