@@ -27,9 +27,9 @@ namespace MasterMealMind.API.Services
             return _ingredientSearch;
         }
 
-        public static void SetIngredientSearch(string ingredientSearchList)
+        public static void SetIngredientSearch(string ingredientSearch)
         {
-            _ingredientSearch = ingredientSearchList;
+            _ingredientSearch = ingredientSearch;
         }
 
         public static void ClearIngredientSearch()

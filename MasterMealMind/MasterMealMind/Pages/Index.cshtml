@@ -2,16 +2,24 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-
 }
 <div class="container">
-    <div class="text-center">
-        <h4>Receptförslag</h4>
-		@if (Model.RecipeResult != null)
-		{
-            
-			<table class="table table-striped">
-				<tbody>
+    <div class="text-start">
+        <div class="row">
+            <div class="form-group col-md-10">
+                <h4>@(Model.SearchString != string.Empty ? "Receptförslag på " + Model.SearchString : "Receptförslag")</h4>
+            </div>
+            <div class="form-group col-md-2">
+                <form method="post" asp-page-handler="EmptySearch">
+                    <button class="btn btn-secondary" type="submit">Töm sökning</button>
+                </form>
+            </div>
+        </div>
+
+        @if (Model.RecipeResult != null)
+        {
+            <table class="table table-striped">
+                <tbody>
                     @foreach (var recipe in Model.RecipeResult.Recipes)
                     {
                         <tr>
@@ -21,25 +29,14 @@
                                 </a>
                             </td>
                             <td>
-                                
                                 <p>@recipe.PreambleHTML.ToString()</p>
-                                
                             </td>
                             <td><img src="@recipe.ImageUrl" height="150"></td>
                         </tr>
                     }
 
-				</tbody>
-			</table>
-		}
-
-        @* @if (Model.RecipeResult != null)
-        {
-        <p>@Model.RecipeResult.Recipes.Count</p>
-        @foreach (var r in Model.RecipeResult.Recipes)
-        {
-        <p>@r.Title</p>
+                </tbody>
+            </table>
         }
-        } *@
     </div>
 </div>
