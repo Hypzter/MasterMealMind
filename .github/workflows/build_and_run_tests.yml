@@ -25,6 +25,8 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: EF Tool inst
+      run: dotnet tool install --global dotnet-ef --version 7.0.14
     - name: Apply EF Core Migrations
       run: dotnet ef database update --project ./MasterMealMind.API --configuration Debug --connection-string ${{ secrets.CONN_TOKEN }}
 
