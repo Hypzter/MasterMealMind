@@ -20,6 +20,8 @@ namespace MasterMealMind.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddHealthChecks();
+            builder.Services.AddEndpointsApiExplorer();
 
 
             var app = builder.Build();
@@ -35,6 +37,14 @@ namespace MasterMealMind.API
 
             app.UseAuthorization();
 
+            app.MapHealthChecks("api/healthcheck");
+
+            app.MapGet("api/groceries", async (IGroceryService service) =>
+            {
+                var groceries = await service.GetAllGroceries();
+                return groceries;
+            })
+            .WithName("GetGroceries");
 
             app.MapControllers();
 
