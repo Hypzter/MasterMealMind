@@ -28,7 +28,7 @@ jobs:
     - name: EF Tool inst
       run: dotnet tool install --global dotnet-ef --version 7.0.14
     - name: Apply EF Core Migrations
-      run: dotnet ef database update --project ./MasterMealMind.API --configuration Debug
+      run: dotnet ef database update --project ./MasterMealMind.API
 
     - name: Build
       run: dotnet build --no-restore
