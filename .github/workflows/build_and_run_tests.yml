@@ -16,6 +16,8 @@ jobs:
     defaults:
       run: 
         working-directory: ./MasterMealMind
+    env:
+        ConnectionStrings__DefaultConnection: ${{ secrets.CONN_TOKEN }}
 
     steps:
     - uses: actions/checkout@v3
@@ -33,6 +35,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      env:
-        DB_CONNECTION_STRING: ${{ secrets.CONN_TOKEN }}
       run: dotnet test --verbosity normal
