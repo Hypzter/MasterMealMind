@@ -1,0 +1,9 @@
+{
+  "dictionaryDefinitions": [
+    {
+      "name": "custom",
+      "words": ["Jörn", "Zaefferer"]
+    }
+  ],
+  "dictionaries": ["typescript", "node", "custom"]
+}
