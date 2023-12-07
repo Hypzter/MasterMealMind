@@ -14,7 +14,7 @@ namespace MasterMealMind.Web.ApiServices
         public IcaAPIService()
         {
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-            configurationBuilder.AddUserSecrets<IcaAPIService>(); // Replace YourClass with the type where you want to access the secrets
+            configurationBuilder.AddUserSecrets<IcaAPIService>();
             _configuration = configurationBuilder.Build();
         }
 
@@ -23,16 +23,12 @@ namespace MasterMealMind.Web.ApiServices
         {
             using (HttpClient client = new HttpClient())
             {
-
-                // Concatenate username and password for HTTP Basic authentication
                 string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}"));
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", credentials);
 
-                // Make a GET request to /api/login
                 HttpResponseMessage response = await client.GetAsync($"{_baseUrl}/api/login/");
                 response.EnsureSuccessStatusCode();
 
-                // Extract AuthenticationTicket from the response headers
                 string authenticationTicket = response.Headers.GetValues("AuthenticationTicket").FirstOrDefault();
 
                 return authenticationTicket;

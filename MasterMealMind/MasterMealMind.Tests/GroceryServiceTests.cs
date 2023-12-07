@@ -3,15 +3,7 @@ using MasterMealMind.API.Services;
 using MasterMealMind.Web.ApiServices;
 using MasterMealMind.Web.Pages;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Identity.Client.Extensions.Msal;
-using Moq;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MasterMealMind.Tests
 {

@@ -10,9 +10,9 @@ namespace MasterMealMind.API.Controllers
     {
         private readonly IGroceryService _groceryService;
 
-        public GroceryController(IGroceryService grocerieService)
+        public GroceryController(IGroceryService groceryService)
         {
-            _groceryService = grocerieService;
+            _groceryService = groceryService;
         }
 
 
