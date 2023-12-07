@@ -42,6 +42,6 @@ jobs:
       run: dotnet ef database update --project ./MasterMealMind.API
 
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration release
     - name: Test
-      run: dotnet test --verbosity normal
+      run: dotnet test --verbosity normal --no-build --configuration Release
