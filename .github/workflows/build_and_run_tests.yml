@@ -13,11 +13,21 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          MSQL_SA_PASSWORD: NotARealPassword
+          ACCEPT_EULA: Y
+        ports:
+          - "44338:44338"
+          
     defaults:
       run: 
         working-directory: ./MasterMealMind
     env:
         ConnectionStrings__DefaultConnection: ${{ secrets.CONN_TOKEN }}
+    
 
     steps:
     - uses: actions/checkout@v3
