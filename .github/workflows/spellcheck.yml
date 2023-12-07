@@ -1,9 +1,7 @@
 name: Spell Check
 
 on:
-  pull_request:
-    paths:
-      - '**/*.md'
+  workflow_dispatch
 
 jobs:
   spell-check:
