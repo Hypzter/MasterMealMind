@@ -2,7 +2,7 @@
   "dictionaryDefinitions": [
     {
       "name": "custom",
-      "words": ["Jörn", "Zaefferer"]
+      "words": ["Jörn", "Zaefferer", "Kylskåp", "Skafferi", "Frys"]
     }
   ],
   "dictionaries": ["typescript", "node", "custom"]
