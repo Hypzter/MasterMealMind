@@ -17,7 +17,7 @@ jobs:
       sqlserver:
         image: mcr.microsoft.com/mssql/server:2022-latest
         env:
-          MSQL_SA_PASSWORD: NotARea1Passw0rd!
+          MSSQL_SA_PASSWORD: NotARea1Passw0rd!
           ACCEPT_EULA: Y
         ports:
           - "1433:1433"
