@@ -17,18 +17,17 @@ jobs:
       sqlserver:
         image: mcr.microsoft.com/mssql/server:2022-latest
         env:
-          MSQL_SA_PASSWORD: NotARealPassword
+          MSQL_SA_PASSWORD: NotARealPassw0rd!
           ACCEPT_EULA: Y
         ports:
-          - "44338:44338"
+          - "1433:1433"
           
     defaults:
       run: 
         working-directory: ./MasterMealMind
     env:
-        ConnectionStrings__DefaultConnection: ${{ secrets.CONN_TOKEN }}
+        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Initial Catalog=Todos;User Id=sa;Password=NotARea1Passw0rd!;TrustServerCertificate=True"
     
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
