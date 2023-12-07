@@ -20,5 +20,4 @@ jobs:
       run: npm install -g cspell
 
     - name: Spell Check
-      run: cspell ".cs"
-
+      run: cspell "**/*.md" --config .cspell.json
