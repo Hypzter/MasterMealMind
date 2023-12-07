@@ -1,7 +1,9 @@
 name: Spell Check
 
 on:
-  workflow_dispatch
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   spell-check:
