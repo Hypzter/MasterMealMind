@@ -1,11 +1,11 @@
-using MasterMealMind.API.Models;
+using MasterMealMind.Core.Models;
 using System.Net;
 using System.Text.Json;
 using Moq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MasterMealMind.Web.Pages;
 using MasterMealMind.Web.ApiServices;
-using MasterMealMind.API.Services;
+using MasterMealMind.Infrastructure.Services;
 
 namespace MasterMealMind.Tests
 {

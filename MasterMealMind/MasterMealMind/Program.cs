@@ -1,5 +1,5 @@
-using MasterMealMind.API.Enum;
-using MasterMealMind.API.Services;
+using MasterMealMind.Core.Enum;
+using MasterMealMind.Infrastructure.Services;
 using MasterMealMind.Web.ApiServices;
 using Microsoft.AspNetCore.Mvc;
 

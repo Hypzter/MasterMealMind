@@ -1,4 +1,4 @@
-﻿using MasterMealMind.API.Models;
+﻿using MasterMealMind.Core.Models;
 using Newtonsoft.Json;
 using System.Text;
 

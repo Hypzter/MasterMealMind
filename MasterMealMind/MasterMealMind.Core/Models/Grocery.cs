@@ -1,11 +1,11 @@
-﻿using MasterMealMind.API.Enum;
+﻿using MasterMealMind.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MasterMealMind.API.Models
+namespace MasterMealMind.Core.Models
 {
     public class Grocery
     {

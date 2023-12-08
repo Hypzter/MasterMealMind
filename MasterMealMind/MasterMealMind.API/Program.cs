@@ -1,5 +1,7 @@
 
-using MasterMealMind.API.Services;
+using MasterMealMind.Core.Services;
+using MasterMealMind.Infrastructure.Services;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace MasterMealMind.API

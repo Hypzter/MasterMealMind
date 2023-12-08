@@ -1,4 +1,4 @@
-﻿namespace MasterMealMind.API.Models
+﻿namespace MasterMealMind.Core.Models
 {
 	public class RecipeResult
 	{

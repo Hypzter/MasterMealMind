@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MasterMealMind.API.Migrations
+namespace MasterMealMind.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class addedEnumsToGrocery : Migration

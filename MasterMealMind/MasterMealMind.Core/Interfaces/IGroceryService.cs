@@ -1,7 +1,6 @@
-﻿using MasterMealMind.API.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using MasterMealMind.Core.Models;
 
-namespace MasterMealMind.API.Services
+namespace MasterMealMind.Core.Services
 {
     public interface IGroceryService
     {
@@ -9,7 +8,7 @@ namespace MasterMealMind.API.Services
 
         Task<Grocery> GetOneGrocery(int id);
 
-        Task CreateGrocery(Grocery grocery);
+        Task AddOrUpdateGrocery(Grocery grocery);
 
 
         Task UpdateGrocery(Grocery updatedGrocery);
@@ -18,5 +17,8 @@ namespace MasterMealMind.API.Services
         void DeleteGrocery(int id);
 
         Task<bool> GroceryExists(int id);
+        Task<bool> GroceryExists(string name);
+
+        Grocery GetGroceryToUpdate(Grocery grocery, Grocery originalGrocery);
     }
 }

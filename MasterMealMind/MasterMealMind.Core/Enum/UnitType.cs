@@ -1,4 +1,4 @@
-﻿namespace MasterMealMind.API.Enum
+﻿namespace MasterMealMind.Core.Enum
 {
 	public enum UnitType
 	{

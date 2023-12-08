@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MasterMealMind.API\MasterMealMind.API.csproj" />
+    <ProjectReference Include="..\MasterMealMind.Core\MasterMealMind.Core.csproj" />
   </ItemGroup>
 
 </Project>
