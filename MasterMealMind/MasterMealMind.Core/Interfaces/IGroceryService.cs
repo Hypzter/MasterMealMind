@@ -14,7 +14,7 @@ namespace MasterMealMind.Core.Services
         Task UpdateGrocery(Grocery updatedGrocery);
 
 
-        void DeleteGrocery(int id);
+        Task DeleteGrocery(int id);
 
         Task<bool> GroceryExists(int id);
         Task<bool> GroceryExists(string name);

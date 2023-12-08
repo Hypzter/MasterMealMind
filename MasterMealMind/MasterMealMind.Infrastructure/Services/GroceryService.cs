@@ -9,102 +9,84 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace MasterMealMind.Infrastructure.Services
 {
-    public class GroceryService : IGroceryService
-    {
-        private readonly MyDbContext _context;
-        private static string _ingredientSearch { get; set; }
+	public class GroceryService : IGroceryService
+	{
+		private readonly MyDbContext _context;
 
-        public GroceryService(MyDbContext context)
-        {
-            _context = context;
-            _ingredientSearch = string.Empty;
-        }
+		public GroceryService(MyDbContext context)
+		{
+			_context = context;
+		}
 
-        public static string GetIngredientSearch()
-        {
-            if (_ingredientSearch is null)
-                _ingredientSearch = string.Empty;
+		public async Task<List<Grocery>> GetAllGroceries()
+		{
+			return await _context.Groceries.ToListAsync();
+		}
 
-            return _ingredientSearch;
-        }
+		public async Task<Grocery> GetOneGrocery(int id)
+		{
+			var grocery = await _context.Groceries.FirstOrDefaultAsync(g => g.Id == id);
 
-        public static void SetIngredientSearch(string ingredientSearch)
-        {
-            _ingredientSearch = ingredientSearch;
-        }
+			return grocery != null ? grocery : null;
+		}
 
-        public static void ClearIngredientSearch()
-        {
-            _ingredientSearch = string.Empty;
-        }
+		public async Task AddOrUpdateGrocery(Grocery modifiedGrocery)
+		{
+			if (await GroceryExists(modifiedGrocery.Name))
+			{
+				var existingGrocery = await _context.Groceries.FirstOrDefaultAsync(g => g.Name == modifiedGrocery.Name);
+				var updatedExistingGrocery = GetGroceryToUpdate(modifiedGrocery, existingGrocery);
+				_context.Entry(updatedExistingGrocery).State = EntityState.Modified;
 
-        public async Task<List<Grocery>> GetAllGroceries()
-        {
-            return await _context.Groceries.ToListAsync();
-        }
+			}
 
-        public async Task<Grocery> GetOneGrocery(int id)
-        {
-            var grocery = await _context.Groceries.FirstOrDefaultAsync(g => g.Id == id);
+			else
+				await _context.Groceries.AddAsync(modifiedGrocery);
 
-            return grocery != null ? grocery : null;
-        }
+			await _context.SaveChangesAsync();
+		}
 
-        public async Task AddOrUpdateGrocery(Grocery modifiedGrocery)
-        {
-            if (await GroceryExists(modifiedGrocery.Name))
-            {
-                var existingGrocery = await _context.Groceries.FirstOrDefaultAsync(g => g.Name == modifiedGrocery.Name);
-                var updatedExistingGrocery = GetGroceryToUpdate(modifiedGrocery, existingGrocery);
-                _context.Entry(updatedExistingGrocery).State = EntityState.Modified;
+		public async Task UpdateGrocery(Grocery grocery)
+		{
 
-            }
+			var groceryToUpdate = await _context.Groceries.FirstOrDefaultAsync(g => string.Equals(g.Name, grocery.Name, StringComparison.OrdinalIgnoreCase)) ?? throw new ArgumentNullException("updateGrocery");
+			var updatedGrocery = GetGroceryToUpdate(grocery, groceryToUpdate);
+			_context.Entry(updatedGrocery).State = EntityState.Modified;
+			await _context.SaveChangesAsync();
+		}
 
-            else
-                await _context.Groceries.AddAsync(modifiedGrocery);
+		public async Task DeleteGrocery(int id)
+		{
+			var grocery = await _context.Groceries.FindAsync(id);
 
-            await _context.SaveChangesAsync();
-        }
+			if (grocery == null)
+			{
+				throw new InvalidOperationException();
+			}
+			_context.Groceries.Remove(grocery);
+			_context.SaveChanges();
 
-        public async Task UpdateGrocery(Grocery grocery)
-        {
+		}
 
-            var groceryToUpdate = await _context.Groceries.FirstOrDefaultAsync(g => string.Equals(g.Name, grocery.Name, StringComparison.OrdinalIgnoreCase)) ?? throw new ArgumentNullException("updateGrocery");
-            var updatedGrocery = GetGroceryToUpdate(grocery, groceryToUpdate);
-            _context.Entry(updatedGrocery).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-        }
+		public async Task<bool> GroceryExists(int id)
+		{
+			return await _context.Groceries.AnyAsync(g => g.Id == id);
+		}
+		public async Task<bool> GroceryExists(string name)
+		{
+			return await _context.Groceries.AnyAsync(g => g.Name == name);
+		}
 
-        public void DeleteGrocery(int id)
-        {
-            var grocery = _context.Groceries.Find(id);
+		public Grocery GetGroceryToUpdate(Grocery updatedGrocery, Grocery groceryToUpdate)
+		{
+			groceryToUpdate.Name = updatedGrocery.Name;
+			groceryToUpdate.Quantity = updatedGrocery.Quantity;
+			groceryToUpdate.Description = updatedGrocery.Description;
+			groceryToUpdate.Unit = updatedGrocery.Unit;
+			groceryToUpdate.Storage = updatedGrocery.Storage;
 
-            if (grocery != null)
-            {
-                _context.Groceries.Remove(grocery);
-                _context.SaveChanges();
-            }
-        }
+			return groceryToUpdate;
 
-        public async Task<bool> GroceryExists(int id)
-        {
-            return await _context.Groceries.AnyAsync(g => g.Id == id);
-        }
-        public async Task<bool> GroceryExists(string name)
-        {
-            return await _context.Groceries.AnyAsync(g => g.Name == name);
-        }
-
-        public Grocery GetGroceryToUpdate(Grocery updatedGrocery, Grocery groceryToUpdate)
-        {
-            groceryToUpdate.Name = updatedGrocery.Name;
-            groceryToUpdate.Quantity = updatedGrocery.Quantity;
-            groceryToUpdate.Description = updatedGrocery.Description;
-            groceryToUpdate.Unit = updatedGrocery.Unit;
-            groceryToUpdate.Storage = updatedGrocery.Storage;
-
-            return groceryToUpdate;
-            
-        }
-    }
+		}
+	}
 }
