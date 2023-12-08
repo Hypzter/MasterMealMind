@@ -1,4 +1,5 @@
 using MasterMealMind.Core.Enum;
+using MasterMealMind.Core.Interfaces;
 using MasterMealMind.Infrastructure.Services;
 using MasterMealMind.Web.ApiServices;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ namespace MasterMealMind.Web
 			builder.Services.AddScoped<ILocalAPIService, LocalAPIService>();
 			builder.Services.AddScoped<IIcaAPIService, IcaAPIService>();
 			builder.Services.AddScoped<HttpClient>();
+            builder.Services.AddSingleton<ISearchService, SearchService>();
 
 
 			var app = builder.Build();

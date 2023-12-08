@@ -7,12 +7,14 @@ using Newtonsoft.Json;
 using MasterMealMind.Web.ApiServices;
 using System.Linq;
 using Microsoft.IdentityModel.Tokens;
+using MasterMealMind.Core.Interfaces;
 
 namespace MasterMealMind.Web.Pages
 {
     public class GroceryPageModel : PageModel
     {
         private readonly ILocalAPIService _localAPIService;
+        private readonly ISearchService _searchService;
 
         public List<Grocery> Groceries { get; set; }
 
@@ -21,9 +23,10 @@ namespace MasterMealMind.Web.Pages
 		public Grocery EditGrocery { get; set; }
 
 
-		public GroceryPageModel(ILocalAPIService localAPIService)
+		public GroceryPageModel(ILocalAPIService localAPIService, ISearchService searchService)
         {
             _localAPIService = localAPIService;
+            _searchService = searchService;
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -69,7 +72,7 @@ namespace MasterMealMind.Web.Pages
             if (selectedGroceryNames is null)
                 return RedirectToPage();
 
-			GroceryService.SetIngredientSearch(selectedGroceryNames);
+            _searchService.SetSearchString(selectedGroceryNames);
             return RedirectToPage("/Index");
 		}
 	}

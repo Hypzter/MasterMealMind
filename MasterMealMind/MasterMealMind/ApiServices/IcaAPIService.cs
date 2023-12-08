@@ -4,6 +4,8 @@ using System.Text;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using MasterMealMind.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using MasterMealMind.Core.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MasterMealMind.Web.ApiServices
 {
@@ -11,11 +13,13 @@ namespace MasterMealMind.Web.ApiServices
     {
         private static readonly string _baseUrl = "https://handla.api.ica.se/";
         private readonly IConfiguration _configuration;
-        public IcaAPIService()
+        private readonly ISearchService _searchService;
+        public IcaAPIService(ISearchService searchService)
         {
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
             configurationBuilder.AddUserSecrets<IcaAPIService>();
             _configuration = configurationBuilder.Build();
+            _searchService = searchService;
         }
 
 
@@ -42,9 +46,9 @@ namespace MasterMealMind.Web.ApiServices
             using (HttpClient client = new HttpClient())
             {
                 RecipeResult result = null;
-                var phrase = GroceryService.GetIngredientSearch();
+                var phrase = _searchService.GetSearchString();
                 string searchUri = $"searchwithfilters?recordsPerPage=40&pageNumber=1&phrase={phrase}&sorting=0";
-                if (phrase == string.Empty)
+                if (phrase.IsNullOrEmpty())
                     searchUri = "random?numberofrecipes=10";
 
 
