@@ -1,4 +1,4 @@
-﻿using MasterMealMind.API.Models;
+﻿using MasterMealMind.Core.Models;
 
 namespace MasterMealMind.Web.ApiServices
 {

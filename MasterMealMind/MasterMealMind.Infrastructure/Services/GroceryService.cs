@@ -1,12 +1,13 @@
 ﻿
-using MasterMealMind.API.Models;
-using Microsoft.AspNetCore.Mvc;
+using MasterMealMind.Infrastructure.Services;
+using MasterMealMind.Core.Models;
+using MasterMealMind.Core.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Reflection.Metadata.Ecma335;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace MasterMealMind.API.Services
+namespace MasterMealMind.Infrastructure.Services
 {
     public class GroceryService : IGroceryService
     {
@@ -49,14 +50,27 @@ namespace MasterMealMind.API.Services
             return grocery != null ? grocery : null;
         }
 
-        public async Task CreateGrocery(Grocery grocery)
+        public async Task AddOrUpdateGrocery(Grocery modifiedGrocery)
         {
-            await _context.Groceries.AddAsync(grocery);
+            if (await GroceryExists(modifiedGrocery.Name))
+            {
+                var existingGrocery = await _context.Groceries.FirstOrDefaultAsync(g => g.Name == modifiedGrocery.Name);
+                var updatedExistingGrocery = GetGroceryToUpdate(modifiedGrocery, existingGrocery);
+                _context.Entry(updatedExistingGrocery).State = EntityState.Modified;
+
+            }
+
+            else
+                await _context.Groceries.AddAsync(modifiedGrocery);
+
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateGrocery(Grocery updatedGrocery)
+        public async Task UpdateGrocery(Grocery grocery)
         {
+
+            var groceryToUpdate = await _context.Groceries.FirstOrDefaultAsync(g => string.Equals(g.Name, grocery.Name, StringComparison.OrdinalIgnoreCase)) ?? throw new ArgumentNullException("updateGrocery");
+            var updatedGrocery = GetGroceryToUpdate(grocery, groceryToUpdate);
             _context.Entry(updatedGrocery).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
@@ -76,10 +90,13 @@ namespace MasterMealMind.API.Services
         {
             return await _context.Groceries.AnyAsync(g => g.Id == id);
         }
-
-        public static Grocery GroceryToUpdate(List<Grocery> groceries, Grocery updatedGrocery)
+        public async Task<bool> GroceryExists(string name)
         {
-            var groceryToUpdate = groceries.FirstOrDefault(g => string.Equals(g.Name, updatedGrocery.Name, StringComparison.OrdinalIgnoreCase)) ?? throw new ArgumentNullException("updateGrocery");
+            return await _context.Groceries.AnyAsync(g => g.Name == name);
+        }
+
+        public Grocery GetGroceryToUpdate(Grocery updatedGrocery, Grocery groceryToUpdate)
+        {
             groceryToUpdate.Name = updatedGrocery.Name;
             groceryToUpdate.Quantity = updatedGrocery.Quantity;
             groceryToUpdate.Description = updatedGrocery.Description;

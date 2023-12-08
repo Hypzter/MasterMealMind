@@ -1,5 +1,5 @@
-﻿using MasterMealMind.API.Models;
-using MasterMealMind.API.Services;
+﻿using MasterMealMind.Core.Models;
+using MasterMealMind.Infrastructure.Services;
 using MasterMealMind.Web.ApiServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

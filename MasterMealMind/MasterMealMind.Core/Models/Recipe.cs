@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MasterMealMind.API.Models
+namespace MasterMealMind.Core.Models
 {
 
 	public class Recipe

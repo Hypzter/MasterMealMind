@@ -1,8 +1,8 @@
-﻿using MasterMealMind.API.Models;
+﻿using MasterMealMind.Core.Models;
 using Newtonsoft.Json;
 using System.Text;
 using Microsoft.Extensions.Configuration.UserSecrets;
-using MasterMealMind.API.Services;
+using MasterMealMind.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace MasterMealMind.Web.ApiServices
@@ -84,5 +84,7 @@ namespace MasterMealMind.Web.ApiServices
                 return result;
             }
         }
+
+
     }
 }

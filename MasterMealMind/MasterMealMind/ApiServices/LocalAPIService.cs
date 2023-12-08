@@ -1,4 +1,4 @@
-﻿using MasterMealMind.API.Models;
+﻿using MasterMealMind.Core.Models;
 using System.Text.Json;
 using MasterMealMind.API.Controllers;
 

@@ -1,6 +1,7 @@
-﻿using MasterMealMind.API.Services;
-using MasterMealMind.API.Models;
+﻿using MasterMealMind.Infrastructure.Services;
+using MasterMealMind.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using MasterMealMind.Core.Services;
 
 namespace MasterMealMind.API.Controllers
 {
@@ -23,22 +24,22 @@ namespace MasterMealMind.API.Controllers
         public async Task<Grocery> GetOneGroceryByIdAsync(int id) => await _groceryService.GetOneGrocery(id);
 
         [HttpPost]
-        public async Task CreateGroceryAsync([FromBody] Grocery grocery) => await _groceryService.CreateGrocery(grocery);
+        public async Task AddOrUpdateGroceryAsync([FromBody] Grocery grocery) => await _groceryService.AddOrUpdateGrocery(grocery);
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateGrocery(int id, [FromBody] Grocery updatedGrocery)
+        public async Task<IActionResult> UpdateGrocery(int id, [FromBody] Grocery grocery)
         {
 
-            if (id != updatedGrocery.Id)
+            if (id != grocery.Id)
             {
                 return BadRequest();
             }
-            if (!await _groceryService.GroceryExists(id))
+            if (!await _groceryService.GroceryExists(grocery.Name))
             {
                 return NotFound();
             }
-            await _groceryService.UpdateGrocery(updatedGrocery);
+            await _groceryService.UpdateGrocery(grocery);
 
             return Ok();
         }

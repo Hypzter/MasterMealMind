@@ -1,17 +1,19 @@
-using MasterMealMind.API.Models;
-using MasterMealMind.API.Services;
+using MasterMealMind.Core.Models;
+using MasterMealMind.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using MasterMealMind.Web.ApiServices;
 using System.Linq;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MasterMealMind.Web.Pages
 {
     public class GroceryPageModel : PageModel
     {
         private readonly ILocalAPIService _localAPIService;
+
         public List<Grocery> Groceries { get; set; }
 
         [BindProperty]
@@ -35,17 +37,8 @@ namespace MasterMealMind.Web.Pages
         }
         public async Task<IActionResult> OnPostAddOrUpdateGrocery()
         {
-            Groceries = await _localAPIService.HttpGetGroceriesAsync() ?? new List<Grocery>();
-
-            if (NewGrocery != null && NewGrocery.Name != null && !Groceries.Any(g => g.Name == NewGrocery.Name))
+            if (NewGrocery != null && NewGrocery.Name != null)
                 await _localAPIService.HttpPostGroceryAsync(NewGrocery);
-
-            else if (NewGrocery != null && NewGrocery.Name != null && Groceries.FirstOrDefault(g => string.Equals(g.Name, NewGrocery.Name, StringComparison.OrdinalIgnoreCase)) is not null)
-            {
-                var updatedGrocery = GroceryService.GroceryToUpdate(Groceries, NewGrocery);
-                await _localAPIService.HttpUpdateGroceryAsync(updatedGrocery);
-            }
-
 
             return RedirectToPage();
         }
