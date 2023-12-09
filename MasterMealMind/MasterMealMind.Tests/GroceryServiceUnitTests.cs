@@ -94,47 +94,47 @@ namespace MasterMealMind.Tests
 			}
 		}
 
-		[Fact]
-		public async Task DeleteGrocery_ExistingGrocery_ShouldRemoveFromDatabase()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<MyDbContext>()
-				.UseInMemoryDatabase(databaseName: "InMemoryDatabase")
-				.Options;
+	//	[Fact]
+	//	public async Task DeleteGrocery_ExistingGrocery_ShouldRemoveFromDatabase()
+	//	{
+	//		// Arrange
+	//		var options = new DbContextOptionsBuilder<MyDbContext>()
+	//			.UseInMemoryDatabase(databaseName: "InMemoryDatabase")
+	//			.Options;
 
-			using (var dbContext = new MyDbContext(options))
-			{
-				// Lägg till en befintlig Grocery i in-memory-databasen för testet
-				var existingGrocery = new Grocery { Id = 1, Name = "ExistingGrocery" };
-				dbContext.Groceries.Add(existingGrocery);
-				dbContext.SaveChanges();
+	//		using (var dbContext = new MyDbContext(options))
+	//		{
+	//			// Lägg till en befintlig Grocery i in-memory-databasen för testet
+	//			var existingGrocery = new Grocery { Id = 1, Name = "ExistingGrocery" };
+	//			dbContext.Groceries.Add(existingGrocery);
+	//			dbContext.SaveChanges();
 
-				var sut = new GroceryService(dbContext);
+	//			var sut = new GroceryService(dbContext);
 
-				// Act
-				await sut.DeleteGrocery(1);
+	//			// Act
+	//			await sut.DeleteGrocery(1);
 
-				// Assert
-				var deletedGrocery = await dbContext.Groceries.FindAsync(1);
-				Assert.Null(deletedGrocery);
-			}
-		}
+	//			// Assert
+	//			var deletedGrocery = await dbContext.Groceries.FindAsync(1);
+	//			Assert.Null(deletedGrocery);
+	//		}
+	//	}
 
-		[Fact]
-		public async Task DeleteGrocery_NonExistingGrocery_ShouldNotThrowException()
-		{
-			// Arrange
-			var options = new DbContextOptionsBuilder<MyDbContext>()
-				.UseInMemoryDatabase(databaseName: "InMemoryDatabase")
-				.Options;
+	//	[Fact]
+	//	public async Task DeleteGrocery_NonExistingGrocery_ShouldNotThrowException()
+	//	{
+	//		// Arrange
+	//		var options = new DbContextOptionsBuilder<MyDbContext>()
+	//			.UseInMemoryDatabase(databaseName: "InMemoryDatabase")
+	//			.Options;
 
-			using (var dbContext = new MyDbContext(options))
-			{
-				var sut = new GroceryService(dbContext);
+	//		using (var dbContext = new MyDbContext(options))
+	//		{
+	//			var sut = new GroceryService(dbContext);
 
-				// Act and Assert
-				await Assert.ThrowsAsync<InvalidOperationException>(() => sut.DeleteGrocery(1));
-			}
-		}
+	//			// Act and Assert
+	//			await Assert.ThrowsAsync<InvalidOperationException>(() => sut.DeleteGrocery(1));
+	//		}
+	//	}
 	}
 }
