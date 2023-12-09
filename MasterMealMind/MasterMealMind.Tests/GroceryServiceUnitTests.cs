@@ -20,8 +20,9 @@ namespace MasterMealMind.Tests
 		public void GroceryToUpdate_ShouldUpdateExistingGrocery()
 		{
 			// Arrange
-			var originalGrocery = new Grocery { Id = 1, Name = "Tomato", Quantity = 2, Description = "Red", Unit = Core.Enum.UnitType.st, Storage = Core.Enum.Storage.Kylskåp };
-			var updatedGrocery = new Grocery { Id = 1, Name = "Tomato", Quantity = 3, Description = "Red", Unit = Core.Enum.UnitType.st, Storage = Core.Enum.Storage.Kylskåp };
+
+			var originalGrocery = new Grocery { Id = 1, Name = "Tomato", Quantity = 2, Description = "Red" };
+			var updatedGrocery = new Grocery { Id = 1, Name = "Tomato", Quantity = 3, Description = "Red" };
 
 			var options = new DbContextOptionsBuilder<MyDbContext>()
 				.UseInMemoryDatabase(databaseName: "InMemoryDatabase5")
