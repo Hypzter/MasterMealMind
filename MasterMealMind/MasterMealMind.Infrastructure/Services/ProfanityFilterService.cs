@@ -29,27 +29,27 @@ namespace MasterMealMind.Infrastructure.Services
         public string FilterProfanity(string input, int timeoutMilliseconds)
         {
             string[] badWords = new string[] { "jävla", "jävel", "satan", "fanskap", "idiot", "skit" };
-
             string filteredText = input;
-            var cancellationTokenSource = new CancellationTokenSource();
 
-            var task = Task.Run(() =>
+            using (var cancellationTokenSource = new CancellationTokenSource())
             {
-                if (input != null)
+                var task = Task.Run(() =>
                 {
-                    foreach (string word in badWords)
+                    if (input != null)
                     {
-                        string pattern = $"({word})";
-                        filteredText = Regex.Replace(filteredText, pattern, "****", RegexOptions.IgnoreCase);
-
+                        foreach (string word in badWords)
+                        {
+                            string pattern = $"({word})";
+                            filteredText = Regex.Replace(filteredText, pattern, "****", RegexOptions.IgnoreCase);
+                        }
                     }
-                }
-            }, cancellationTokenSource.Token);
+                }, cancellationTokenSource.Token);
 
-            if (!task.Wait(timeoutMilliseconds, cancellationTokenSource.Token))
-            {
-                cancellationTokenSource.Cancel();
-                throw new TaskCanceledException();
+                if (!task.Wait(timeoutMilliseconds, cancellationTokenSource.Token))
+                {
+                    cancellationTokenSource.Cancel();
+                    throw new TaskCanceledException();
+                }
             }
 
             return filteredText;
