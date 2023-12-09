@@ -43,7 +43,7 @@ namespace MasterMealMind.API
 
             app.MapGet("api/groceries", async (IGroceryService service) =>
             {
-                var groceries = await service.GetAllGroceries();
+                var groceries = await service.GetAllGroceriesAsync();
                 return groceries;
             })
             .WithName("GetGroceries");

@@ -18,21 +18,24 @@ namespace MasterMealMind.Infrastructure.Services
 			_context = context;
 		}
 
-		public async Task<List<Grocery>> GetAllGroceries()
+		public async Task<List<Grocery>> GetAllGroceriesAsync()
 		{
 			return await _context.Groceries.ToListAsync();
 		}
 
-		public async Task<Grocery> GetOneGrocery(int id)
+		public async Task<Grocery> GetOneGroceryAsync(int id)
 		{
-			var grocery = await _context.Groceries.FirstOrDefaultAsync(g => g.Id == id);
+            var grocery = await _context.Groceries.SingleOrDefaultAsync(g => g.Id == id);
 
-			return grocery != null ? grocery : null;
-		}
+            if (grocery == null)
+                throw new InvalidOperationException($"Grocery with ID {id} not found.");
 
-		public async Task AddOrUpdateGrocery(Grocery modifiedGrocery)
+            return grocery;
+        }
+
+		public async Task AddOrUpdateGroceryAsync(Grocery modifiedGrocery)
 		{
-			if (await GroceryExists(modifiedGrocery.Name))
+			if (await GroceryExistsAsync(modifiedGrocery.Name))
 			{
 				var existingGrocery = await _context.Groceries.FirstOrDefaultAsync(g => g.Name == modifiedGrocery.Name);
 				var updatedExistingGrocery = GetGroceryToUpdate(modifiedGrocery, existingGrocery);
@@ -46,7 +49,7 @@ namespace MasterMealMind.Infrastructure.Services
 			await _context.SaveChangesAsync();
 		}
 
-		public async Task UpdateGrocery(Grocery grocery)
+		public async Task UpdateGroceryAsync(Grocery grocery)
 		{
 
 			var groceryToUpdate = await _context.Groceries.FirstOrDefaultAsync(g => string.Equals(g.Name, grocery.Name, StringComparison.OrdinalIgnoreCase)) ?? throw new ArgumentNullException("updateGrocery");
@@ -55,7 +58,7 @@ namespace MasterMealMind.Infrastructure.Services
 			await _context.SaveChangesAsync();
 		}
 
-		public async Task DeleteGrocery(int id)
+		public async Task DeleteGroceryAsync(int id)
 		{
 			var grocery = await _context.Groceries.FindAsync(id);
 
@@ -68,11 +71,11 @@ namespace MasterMealMind.Infrastructure.Services
 
 		}
 
-		public async Task<bool> GroceryExists(int id)
+		public async Task<bool> GroceryExistsAsync(int id)
 		{
 			return await _context.Groceries.AnyAsync(g => g.Id == id);
 		}
-		public async Task<bool> GroceryExists(string name)
+		public async Task<bool> GroceryExistsAsync(string name)
 		{
 			return await _context.Groceries.AnyAsync(g => g.Name == name);
 		}
