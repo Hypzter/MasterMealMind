@@ -9,10 +9,13 @@ namespace MasterMealMind.Infrastructure.Services
 {
     public class SearchService : ISearchService
     {
-        private string _searchString;
+        private string? _searchString;
 
         public string GetSearchString()
         {
+            if (_searchString == null)
+                _searchString = string.Empty;
+
             return _searchString;
         }
 

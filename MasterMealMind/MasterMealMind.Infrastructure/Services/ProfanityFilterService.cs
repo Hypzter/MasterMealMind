@@ -10,22 +10,6 @@ namespace MasterMealMind.Infrastructure.Services
 {
     public class ProfanityFilterService : IProfanityFilterService
     {
-        //public string FilterProfanity(string input)
-        //{
-        //    string[] badWords = new string[] { "jävla", "jävel", "satan", "fanskap", "idiot", "skit" };
-
-        //    string filteredText = input;
-        //    foreach (string word in badWords)
-        //    {
-        //        if (input != null)
-        //        {
-        //            string pattern = $"({word})";
-        //            filteredText = Regex.Replace(filteredText, pattern, "****", RegexOptions.IgnoreCase);
-        //        }
-        //    }
-        //    return filteredText;
-        //}
-
         public string FilterProfanity(string input, int timeoutMilliseconds)
         {
             string[] badWords = new string[] { "jävla", "jävel", "satan", "fanskap", "idiot", "skit" };
