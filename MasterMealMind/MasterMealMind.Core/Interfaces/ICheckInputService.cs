@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MasterMealMind.Core.Interfaces
 {
-	public interface IProfanityFilterService
-	{
-		string FilterProfanity(string input, int timeoutMilliseconds);
-	}
+    public interface ICheckInputService
+    {
+        bool IsInputLengthValid(string input);
+    }
 }

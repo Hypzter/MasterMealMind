@@ -18,13 +18,13 @@ namespace MasterMealMind.API.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<Grocery>> GetGroceriesAsync() => await _groceryService.GetAllGroceries();
+        public async Task<IEnumerable<Grocery>> GetGroceriesAsync() => await _groceryService.GetAllGroceriesAsync();
 
         [HttpGet("{id}")]
-        public async Task<Grocery> GetOneGroceryByIdAsync(int id) => await _groceryService.GetOneGrocery(id);
+        public async Task<Grocery> GetOneGroceryByIdAsync(int id) => await _groceryService.GetOneGroceryAsync(id);
 
         [HttpPost]
-        public async Task AddOrUpdateGroceryAsync([FromBody] Grocery grocery) => await _groceryService.AddOrUpdateGrocery(grocery);
+        public async Task AddOrUpdateGroceryAsync([FromBody] Grocery grocery) => await _groceryService.AddOrUpdateGroceryAsync(grocery);
 
 
         [HttpPut("{id}")]
@@ -35,11 +35,11 @@ namespace MasterMealMind.API.Controllers
             {
                 return BadRequest();
             }
-            if (!await _groceryService.GroceryExists(grocery.Name))
+            if (!await _groceryService.GroceryExistsAsync(grocery.Name))
             {
                 return NotFound();
             }
-            await _groceryService.UpdateGrocery(grocery);
+            await _groceryService.UpdateGroceryAsync(grocery);
 
             return Ok();
         }
@@ -47,12 +47,12 @@ namespace MasterMealMind.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGrocery(int id)
         {
-            if (!await _groceryService.GroceryExists(id))
+            if (!await _groceryService.GroceryExistsAsync(id))
             {
                 return NotFound();
             }
 
-            _groceryService.DeleteGrocery(id);
+            await _groceryService.DeleteGroceryAsync(id);
 
             return Ok();
         }

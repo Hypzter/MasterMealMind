@@ -4,20 +4,19 @@ namespace MasterMealMind.Core.Services
 {
     public interface IGroceryService
     {
-		Task<List<Grocery>> GetAllGroceries();
+		Task<List<Grocery>> GetAllGroceriesAsync();
 
-        Task<Grocery> GetOneGrocery(int id);
+        Task<Grocery> GetOneGroceryAsync(int id);
 
-        Task AddOrUpdateGrocery(Grocery grocery);
-
-
-        Task UpdateGrocery(Grocery updatedGrocery);
+        Task AddOrUpdateGroceryAsync(Grocery grocery);
 
 
-        Task DeleteGrocery(int id);
+        Task UpdateGroceryAsync(Grocery updatedGrocery);
 
-        Task<bool> GroceryExists(int id);
-        Task<bool> GroceryExists(string name);
+        Task DeleteGroceryAsync(int id);
+
+        Task<bool> GroceryExistsAsync(int id);
+        Task<bool> GroceryExistsAsync(string name);
 
         Grocery GetGroceryToUpdate(Grocery grocery, Grocery originalGrocery);
     }

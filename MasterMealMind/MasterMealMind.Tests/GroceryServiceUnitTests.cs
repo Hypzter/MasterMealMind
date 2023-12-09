@@ -63,7 +63,7 @@ namespace MasterMealMind.Tests
 
 				// Act
 				var modifiedGrocery = new Grocery { Name = "ExistingGrocery", Quantity = 5 };
-				await sut.AddOrUpdateGrocery(modifiedGrocery);
+				await sut.AddOrUpdateGroceryAsync(modifiedGrocery);
 
 				// Assert
 				var updatedGrocery = await dbContext.Groceries.FirstOrDefaultAsync(g => g.Name == "ExistingGrocery");
@@ -86,7 +86,7 @@ namespace MasterMealMind.Tests
 
 				// Act
 				var newGrocery = new Grocery { Name = "NewGrocery", Quantity = 10 };
-				await sut.AddOrUpdateGrocery(newGrocery);
+				await sut.AddOrUpdateGroceryAsync(newGrocery);
 
 				// Assert
 				var addedGrocery = await dbContext.Groceries.FirstOrDefaultAsync(g => g.Name == "NewGrocery");
@@ -112,7 +112,7 @@ namespace MasterMealMind.Tests
 				var sut = new GroceryService(dbContext);
 
 				// Act
-				await sut.DeleteGrocery(1);
+				await sut.DeleteGroceryAsync(1);
 
 				// Assert
 				var deletedGrocery = await dbContext.Groceries.FindAsync(1);
@@ -133,7 +133,7 @@ namespace MasterMealMind.Tests
 				var sut = new GroceryService(dbContext);
 
 				// Act and Assert
-				await Assert.ThrowsAsync<InvalidOperationException>(() => sut.DeleteGrocery(1));
+				await Assert.ThrowsAsync<InvalidOperationException>(() => sut.DeleteGroceryAsync(1));
 			}
 		}
 	}
