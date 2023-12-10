@@ -12,10 +12,10 @@ namespace MasterMealMind.Tests
         [Theory]
         [InlineData("TestString", 20, true)]
         [InlineData("StringThatShouldReturnFalse", 20, false)]
-        [InlineData("", 10, false)] // Testar null eller tom sträng
-        [InlineData(null, 10, false)] // Testar null
-        [InlineData("NegativeValue", -5, false)] // Testar med ett negativt maxNumberOfDigits
-        [InlineData("Four", 4, true)] // Testar exakt längd
+        [InlineData("", 10, false)]
+        [InlineData(null, 10, false)]
+        [InlineData("NegativeValue", -5, false)]
+        [InlineData("Four", 4, true)]
         public void IsInputLengthValid_ShouldReturnExpectedResult(string input, int maxNumberOfDigits, bool expected)
         {
             // Arrange
