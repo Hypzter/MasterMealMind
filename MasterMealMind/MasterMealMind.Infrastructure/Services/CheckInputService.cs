@@ -9,9 +9,9 @@ namespace MasterMealMind.Infrastructure.Services
 {
     public class CheckInputService : ICheckInputService
     {
-        public bool IsInputLengthValid(string input)
+        public bool IsInputLengthValid(string input, int maxNumberOfDigits)
         {
-            throw new NotImplementedException();
+            return !string.IsNullOrEmpty(input) && input.Length <= maxNumberOfDigits;
         }
     }
 }

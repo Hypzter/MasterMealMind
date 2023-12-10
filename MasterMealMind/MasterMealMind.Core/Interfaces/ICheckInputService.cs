@@ -8,6 +8,6 @@ namespace MasterMealMind.Core.Interfaces
 {
     public interface ICheckInputService
     {
-        bool IsInputLengthValid(string input);
+        bool IsInputLengthValid(string input, int maxNumberOfDigits);
     }
 }
