@@ -17,6 +17,8 @@ namespace MasterMealMind.Infrastructure.Services
 
             using (var cancellationTokenSource = new CancellationTokenSource())
             {
+                cancellationTokenSource.CancelAfter(timeoutMilliseconds);
+
                 var task = Task.Run(() =>
                 {
                     if (input != null)
@@ -29,11 +31,15 @@ namespace MasterMealMind.Infrastructure.Services
                     }
                 }, cancellationTokenSource.Token);
 
-                if (!task.Wait(timeoutMilliseconds, cancellationTokenSource.Token))
+                try
                 {
-                    cancellationTokenSource.Cancel();
+                    task.Wait(cancellationTokenSource.Token);
+                }
+                catch (OperationCanceledException)
+                {
                     throw new TaskCanceledException();
                 }
+
             }
 
             return filteredText;
