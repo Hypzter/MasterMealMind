@@ -28,7 +28,7 @@ namespace MasterMealMind.API.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateGrocery(int id, [FromBody] Grocery grocery)
+        public async Task<IActionResult> UpdateGroceryAsync(int id, [FromBody] Grocery grocery)
         {
 
             if (id != grocery.Id)
@@ -45,7 +45,7 @@ namespace MasterMealMind.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGrocery(int id)
+        public async Task<IActionResult> DeleteGroceryAsync(int id)
         {
             if (!await _groceryService.GroceryExistsAsync(id))
             {

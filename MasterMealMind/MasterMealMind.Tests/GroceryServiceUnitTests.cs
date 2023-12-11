@@ -64,9 +64,9 @@ namespace MasterMealMind.Tests
 				// Act
 				var modifiedGrocery = new Grocery { Name = "ExistingGrocery", Quantity = 5 };
 				await sut.AddOrUpdateGroceryAsync(modifiedGrocery);
+				var updatedGrocery = await dbContext.Groceries.FirstOrDefaultAsync(g => g.Name == "ExistingGrocery");
 
 				// Assert
-				var updatedGrocery = await dbContext.Groceries.FirstOrDefaultAsync(g => g.Name == "ExistingGrocery");
 				Assert.NotNull(updatedGrocery);
 				Assert.Equal(5, updatedGrocery.Quantity);
 			}
@@ -87,9 +87,9 @@ namespace MasterMealMind.Tests
 				// Act
 				var newGrocery = new Grocery { Name = "NewGrocery", Quantity = 10 };
 				await sut.AddOrUpdateGroceryAsync(newGrocery);
+				var addedGrocery = await dbContext.Groceries.FirstOrDefaultAsync(g => g.Name == "NewGrocery");
 
 				// Assert
-				var addedGrocery = await dbContext.Groceries.FirstOrDefaultAsync(g => g.Name == "NewGrocery");
 				Assert.NotNull(addedGrocery);
 				Assert.Equal(10, addedGrocery.Quantity);
 			}
@@ -113,15 +113,15 @@ namespace MasterMealMind.Tests
 
 				// Act
 				await sut.DeleteGroceryAsync(1);
+				var deletedGrocery = await dbContext.Groceries.FindAsync(1);
 
 				// Assert
-				var deletedGrocery = await dbContext.Groceries.FindAsync(1);
 				Assert.Null(deletedGrocery);
 			}
 		}
 
 		[Fact]
-		public async Task DeleteGrocery_NonExistingGrocery_ShouldNotThrowException()
+		public async Task DeleteGrocery_NonExistingGrocery_ShouldThrowException()
 		{
 			// Arrange
 			var options = new DbContextOptionsBuilder<MyDbContext>()
