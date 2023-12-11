@@ -8,16 +8,16 @@ namespace MasterMealMind.Core.Services
 
         Task<Grocery> GetOneGroceryAsync(int id);
 
-        Task AddOrUpdateGroceryAsync(Grocery grocery);
+        Task AddOrUpdateGroceryAsync(Grocery modifiedGrocery);
 
 
-        Task UpdateGroceryAsync(Grocery updatedGrocery);
+        Task UpdateGroceryAsync(Grocery grocery);
 
         Task DeleteGroceryAsync(int id);
 
         Task<bool> GroceryExistsAsync(int id);
         Task<bool> GroceryExistsAsync(string name);
 
-        Grocery GetGroceryToUpdate(Grocery grocery, Grocery originalGrocery);
+        Grocery GetGroceryToUpdate(Grocery updatedGrocery, Grocery originalGrocery);
     }
 }
