@@ -1,10 +1,6 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-var selectedIds = [];
-var checkboxes = document.querySelectorAll('.product-checkbox');
+﻿
+let selectedIds = [];
+let checkboxes = document.querySelectorAll('.product-checkbox');
 function updateSelectedIds() {
 	selectedIds = Array.from(checkboxes)
 		.filter(function (checkbox) {
@@ -18,10 +14,10 @@ function updateSelectedIds() {
 	document.getElementById('selectedGroceryNames').value = selectedIds.join(' ');
 }
 
-var allChecked = false;
+let allChecked = false;
 checkboxes.forEach(function (checkbox) {
 	checkbox.addEventListener('change', function () {
-		var notAllChecked = false;
+		let notAllChecked = false;
 
 		checkboxes.forEach(function (checkbox) {
 			if (!checkbox.checked) {
@@ -33,16 +29,3 @@ checkboxes.forEach(function (checkbox) {
 		updateSelectedIds();
 	});
 });
-
-
-//const getGroceries = (event) => {
-//	event.preventDefault()
-//	let checkboxes = document.getElementsByClassName("product-checkbox")
-//	let boxArray = Array.from(checkboxes)
-//	let checkedIngredients = boxArray.filter(e => e.checked == true).map(e => e.dataset.groceryName)
-//	console.log(checkedIngredients)
-//	document.getElementById('selectedGroceryNames').value = checkedIngredients.join(','); // Joining the array into a comma-separated string
-//	// document.getElementById("formSelectedGroceryNames").submit()
-
-
-//}

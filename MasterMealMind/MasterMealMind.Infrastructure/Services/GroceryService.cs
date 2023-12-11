@@ -80,15 +80,15 @@ namespace MasterMealMind.Infrastructure.Services
 			return await _context.Groceries.AnyAsync(g => g.Name == name);
 		}
 
-		public Grocery GetGroceryToUpdate(Grocery updatedGrocery, Grocery groceryToUpdate)
+		public Grocery GetGroceryToUpdate(Grocery updatedGrocery, Grocery originalGrocery)
 		{
-			groceryToUpdate.Name = updatedGrocery.Name;
-			groceryToUpdate.Quantity = updatedGrocery.Quantity;
-			groceryToUpdate.Description = updatedGrocery.Description;
-			groceryToUpdate.Unit = updatedGrocery.Unit;
-			groceryToUpdate.Storage = updatedGrocery.Storage;
+			originalGrocery.Name = updatedGrocery.Name;
+			originalGrocery.Quantity = updatedGrocery.Quantity;
+			originalGrocery.Description = updatedGrocery.Description;
+			originalGrocery.Unit = updatedGrocery.Unit;
+			originalGrocery.Storage = updatedGrocery.Storage;
 
-			return groceryToUpdate;
+			return originalGrocery;
 
 		}
 	}

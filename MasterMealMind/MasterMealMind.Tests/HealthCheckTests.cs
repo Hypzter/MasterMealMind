@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net;
 
 namespace MasterMealMind.Tests
 {
@@ -16,8 +17,9 @@ namespace MasterMealMind.Tests
         public async Task HealthCheckReturnsHealthyAsync()
         {
             var response = await _httpClient.GetAsync("api/healthcheck");
+            
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            response.EnsureSuccessStatusCode();
         }
     }
 }
