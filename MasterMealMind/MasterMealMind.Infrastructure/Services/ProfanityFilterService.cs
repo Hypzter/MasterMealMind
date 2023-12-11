@@ -26,7 +26,8 @@ namespace MasterMealMind.Infrastructure.Services
                         foreach (string word in badWords)
                         {
                             string pattern = $"({word})";
-                            filteredText = Regex.Replace(filteredText, pattern, "****", RegexOptions.IgnoreCase);
+
+                            filteredText = Regex.Replace(filteredText, pattern, "****", RegexOptions.IgnoreCase | RegexOptions.NonBacktracking);
                         }
                     }
                 }, cancellationTokenSource.Token);
@@ -39,7 +40,6 @@ namespace MasterMealMind.Infrastructure.Services
                 {
                     throw new TaskCanceledException();
                 }
-
             }
 
             return filteredText;
